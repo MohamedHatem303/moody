@@ -16,7 +16,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useTheme } from "../../Context/themeContext";
-import PostDropdown from "../postDropdown/postDropdown";
+import PostDropdown from "../postDropdown/postDropdown.jsx";
 
 export default function Post({ post, allcomment }) {
   const { theme } = useTheme();
