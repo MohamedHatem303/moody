@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { createMyComment } from "../../Server/CreateCommentApi/CreateCommentApi";
 import { AuthContext } from "../../Context/authContext";
 import userImage from "../../assets/userImage.png";
-import PostDropdown from "../postDropdown/postDropdown";
 import {
   Modal,
   ModalContent,
@@ -17,6 +16,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useTheme } from "../../Context/themeContext";
+import PostDropdown from "../postDropdown/postDropdown";
 
 export default function Post({ post, allcomment }) {
   const { theme } = useTheme();
