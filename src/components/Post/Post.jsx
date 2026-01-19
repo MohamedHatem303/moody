@@ -141,12 +141,12 @@ export default function Post({ post, allcomment }) {
     <>
       <div
         className={`${
-          !allcomment ? "rounded-2xl shadow-sm" : ""
-        } border w-full overflow-hidden my-3 ${cardClasses}`}
+          !allcomment ? "border rounded-2xl shadow-sm" : ""
+        }  w-full overflow-hidden my-3 ${cardClasses}`}
       >
         <div
           className={`${
-            allcomment ? "rounded-2xl shadow-sm mb-5" : ""
+            allcomment ? "rounded-2xl  mb-5" : ""
           }`}
         >
           <div className="flex justify-between">

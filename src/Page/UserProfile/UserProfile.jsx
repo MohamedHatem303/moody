@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import userImage from "../../assets/userImage.png";
 import {
   Modal,
@@ -10,14 +10,18 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import { useTheme } from "../../Context/themeContext";
 
 export default function UserProfile() {
+  const { theme } = useTheme();
   const location = useLocation();
   const passedUser = location.state?.user;
 
   const { isOpen, onOpenChange } = useDisclosure();
   const [imageUrl, setImageUrl] = useState("");
 
+  const accentText =
+    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   // حماية لو الصفحة اتفتحت direct
   if (!passedUser) {
     return (
@@ -54,6 +58,13 @@ export default function UserProfile() {
       {/* Page Wrapper */}
       <div className="w-full px-6">
 
+      <Link
+        to="/Home"
+        className={`flex items-center gap-2 mb-3 ${accentText}`}
+      >
+        <i className="fa-solid fa-arrow-left" />
+        <span>Back</span>
+      </Link>
         {/* Header */}
         <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6">
           <h2 className=" text-lg font-semibold text-[#F5D98C]">

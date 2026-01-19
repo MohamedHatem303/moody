@@ -15,7 +15,7 @@ import {
 } from "@heroui/react";
 import { changePassword } from "../../Server/ChangePasswordApi/ChangePasswordApi";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../../Context/themeContext";
 
@@ -134,8 +134,17 @@ export default function Setting() {
   const headerText =
     theme === "dark" ? "text-[#EDEDF0]" : "text-[#F5D98C]";
 
+  const accentText =
+    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
     <div className={`mt-6 p-4 transition-colors ${pageClasses}`}>
+      <Link
+        to="/Home"
+        className={`flex items-center gap-2 mb-3 ${accentText}`}
+      >
+        <i className="fa-solid fa-arrow-left" />
+        <span>Back</span>
+      </Link>
       <div className="w-full">
         <h1 className="text-2xl font-semibold mb-6 text-[#7C3AED]">
           Settings
