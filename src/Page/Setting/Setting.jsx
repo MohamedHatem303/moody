@@ -180,7 +180,7 @@ export default function Setting() {
                 onClick={handleChooseClick}
                 className={`px-5 py-2 rounded-xl transition ${
                   theme === "dark"
-                    ? "bg-[#2A2A3A] text-white"
+                    ? "bg-[#714EA5] text-[#F5D98C]"
                     : "bg-[#714EA5] text-[#F5D98C]"
                 }`}
               >
@@ -201,7 +201,7 @@ export default function Setting() {
                 className={`px-5 py-2 rounded-xl transition ${
                   file
                     ? "bg-[#7C3AED] text-white hover:scale-105"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-[#2A2A3A] text-white cursor-not-allowed"
                 }`}
               >
                 {isSaving ? "Saving..." : "Save Changes"}
@@ -228,7 +228,7 @@ export default function Setting() {
             <span className="opacity-70">Password Settings</span>
             <button
               onClick={onOpen}
-              className="px-4 py-2 rounded-xl bg-[#7C3AED] text-white hover:scale-105 transition"
+              className="px-4 py-2 rounded-xl bg-[#714EA5] text-[#F5D98C] hover:scale-105 transition"
             >
               Change Password
             </button>
