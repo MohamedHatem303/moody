@@ -6,6 +6,7 @@ import Post from "../../components/Post/Post";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import { useUserPosts } from "../../Hooks/useUserPosts";
 import { useTheme } from "../../Context/themeContext";
+import { Helmet } from "react-helmet";
 
 export default function Profile() {
   const { theme } = useTheme();
@@ -65,6 +66,13 @@ export default function Profile() {
     theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
 
   return (
+    <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Moody</title>
+      <link rel="icon" href="public/bird.png" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    </Helmet>
     <div className={`w-full p-4 transition-colors ${pageBg}`}>
       {/* Profile Card */}
       <div className={`rounded-xl  ${cardBg}`}>
@@ -184,5 +192,6 @@ export default function Profile() {
         </div>
       )}
     </div>
+    </>
   );
 }

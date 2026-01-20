@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useTheme } from "../../Context/themeContext";
+import { Helmet } from "react-helmet";
 
 export default function Setting() {
   const { theme, toggleTheme } = useTheme();
@@ -137,6 +138,13 @@ export default function Setting() {
   const accentText =
     theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
+    <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Moody</title>
+      <link rel="icon" href="public/bird.png" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    </Helmet>
     <div className={`mt-6 p-4 transition-colors ${pageClasses}`}>
       <div className="w-full">
         <div className="flex items-center justify-between">
@@ -315,5 +323,6 @@ export default function Setting() {
         </div>
       </div>
     </div>
+    </>
   );
 }

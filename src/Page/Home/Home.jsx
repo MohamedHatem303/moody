@@ -4,6 +4,7 @@ import Post from "../../components/Post/Post";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import { useTheme } from "../../Context/themeContext";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -44,23 +45,31 @@ export default function Home() {
     theme === "dark" ? "border-gray-600" : "border-gray-400";
 
   return (
-    <div className={`transition-colors ${pageBg}`}>
-      <CreatePost />
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Moody</title>
+        <link rel="icon" href="public/bird.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+      </Helmet>
+      <div className={`transition-colors ${pageBg}`}>
+        <CreatePost />
 
-      {posts.map((post) => (
-        <Post key={post.id} post={post} allcomment={false} />
-      ))}
+        {posts.map((post) => (
+          <Post key={post.id} post={post} allcomment={false} />
+        ))}
 
-      {isFetchingNextPage && (
-        <div
-          className={`flex justify-center items-center gap-2 my-6 ${loadingText}`}
-        >
-          <span
-            className={`w-4 h-4 border-2 ${spinnerBorder} border-t-transparent rounded-full animate-spin`}
-          ></span>
-          <span>Loading</span>
-        </div>
-      )}
-    </div>
+        {isFetchingNextPage && (
+          <div
+            className={`flex justify-center items-center gap-2 my-6 ${loadingText}`}
+          >
+            <span
+              className={`w-4 h-4 border-2 ${spinnerBorder} border-t-transparent rounded-full animate-spin`}
+            ></span>
+            <span>Loading</span>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
