@@ -68,8 +68,8 @@ export default function UserProfile() {
             to="/Home"
             className={`flex items-center gap-2 mb-3 text-[#F5D98C]`}
           >
-            <span>Home</span>
-            <i className="fa-solid fa-arrow-right" />
+            <h2 className="text-lg font-semibold">Home</h2>
+            <i className="fa-solid fa-arrow-right mt-1" />
           </Link>
         </div>
 
