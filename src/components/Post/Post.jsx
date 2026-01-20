@@ -137,6 +137,8 @@ export default function Post({ post, allcomment }) {
 
   const mutedText = theme === "dark" ? "text-gray-400" : "text-gray-500";
 
+  const accentText =
+    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
     <>
       <div
@@ -144,11 +146,30 @@ export default function Post({ post, allcomment }) {
           !allcomment ? "border rounded-2xl shadow-sm" : ""
         }  w-full overflow-hidden my-3 ${cardClasses}`}
       >
+        <div className={`${allcomment ? "border  rounded-2xl   border-gray-300 dark:border-gray-700" : ""}`}>
+
+        
         <div
           className={`${
-            allcomment ? "rounded-2xl  mb-5" : ""
+            allcomment ? "  mb-5" : ""
           }`}
         >
+          <div className="flex justify-between rounded-t-2xl bg-[#6F4BA5]">
+                {allcomment?<h1 className="ms-2 text-[#F5D98C]">Post</h1>:null}
+                {allcomment &&(
+                  <>
+                <Link
+                  to="/Home"
+                  className={`flex items-center gap-2 text-[#F5D98C]`}
+                >
+                  <span>Home</span>
+                  <i className="fa-solid fa-arrow-right" />
+                </Link>
+
+                </>
+                )}
+              </div>
+              {allcomment?<hr className="mb-2 border-gray-300 dark:border-gray-700" />:null}
           <div className="flex justify-between">
             <Link
               to={
@@ -178,17 +199,16 @@ export default function Post({ post, allcomment }) {
                 </span>
               </div>
             </Link>
-
-            {userData?._id === post.user._id && (
-              <div className="p-3">
-                <PostDropdown
-                  postId={post._id}
-                  postBodyOld={post.body}
-                  postImageOld={post.image}
-                  allcomment={allcomment}
-                />
-              </div>
-            )}
+                {userData?._id === post.user._id && (
+                  <div className="p-3">
+                    <PostDropdown
+                      postId={post._id}
+                      postBodyOld={post.body}
+                      postImageOld={post.image}
+                      allcomment={allcomment}
+                    />
+                  </div>
+                )}
           </div>
 
           <hr className="my-2 border-gray-300 dark:border-gray-700" />
@@ -323,7 +343,7 @@ export default function Post({ post, allcomment }) {
           </>
         )}
       </div>
-
+</div>
       <Modal
         backdrop="blur"
         isOpen={isImageOpen}

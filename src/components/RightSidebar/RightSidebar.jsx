@@ -59,7 +59,7 @@ export default function RightSidebar() {
   return (
     <>
       {/* ===== Sidebar ===== */}
-      <aside className="fixed right-0 top-0 w-full lg:w-80 lg:bottom-0 overflow-hidden">
+      <aside className="fixed right-0 top-0 w-full lg:w-80 lg:bottom-0 lg:right-0 lg:top-15">
         <div
           className={`
             h-full

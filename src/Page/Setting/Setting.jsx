@@ -138,17 +138,19 @@ export default function Setting() {
     theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
     <div className={`mt-6 p-4 transition-colors ${pageClasses}`}>
-      <Link
-        to="/Home"
-        className={`flex items-center gap-2 mb-3 ${accentText}`}
-      >
-        <i className="fa-solid fa-arrow-left" />
-        <span>Back</span>
-      </Link>
       <div className="w-full">
-        <h1 className="text-2xl font-semibold mb-6 text-[#7C3AED]">
-          Settings
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-semibold mb-6 text-[#7C3AED]">
+            Settings
+          </h1>
+          <Link
+            to="/Home"
+            className={`flex items-center gap-2 mb-3 text-[#7C3AED]`}
+          >
+            <span>Home</span>
+            <i className="fa-solid fa-arrow-right" />
+          </Link>
+        </div>
 
         {/* Change Profile Photo */}
         <div className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}>

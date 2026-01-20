@@ -66,47 +66,52 @@ export default function Profile() {
 
   return (
     <div className={`w-full p-4 transition-colors ${pageBg}`}>
-      <Link
-        to="/Home"
-        className={`flex items-center gap-2 mb-3 ${accentText}`}
-      >
-        <i className="fa-solid fa-arrow-left" />
-        <span>Back</span>
-      </Link>
-
       {/* Profile Card */}
-      <div className={`rounded-xl p-5 ${cardBg}`}>
-        <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-          <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-[#f2d58f] flex-shrink-0">
-            <img
-              src={
-                profileUser?.photo?.includes("default")
-                  ? userImage
-                  : profileUser?.photo
-              }
-              className="block w-full h-full object-cover"
-              alt={profileUser?.name || "profile"}
-            />
-          </div>
+      <div className={`rounded-xl  ${cardBg}`}>
+        <div className="flex justify-between rounded-t-2xl bg-[#6F4BA5]">
+          <h1 className="ms-2 text-[#F5D98C]">Profile</h1>
+          <Link
+            to="/Home"
+            className={`flex items-center gap-2 me-2 text-[#F5D98C] `}
+          >
+            <span>Home</span>
+            <i className="fa-solid fa-arrow-right" />
+          </Link>
+        </div>
+        <div className="p-5">
+          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-[#f2d58f] flex-shrink-0">
+              <img
+                src={
+                  profileUser?.photo?.includes("default")
+                    ? userImage
+                    : profileUser?.photo
+                }
+                className="block w-full h-full object-cover"
+                alt={profileUser?.name || "profile"}
+              />
+            </div>
 
-          <div className="text-center sm:text-left">
-            <h2
-              className={`text-xl font-semibold hover:text-[#7C3AED]`}
-            >
-              {profileUser?.name}
-            </h2>
-            <p className={`${mutedText} hover:text-[#7C3AED]`}>
-              {profileUser?.email}
-            </p>
-            <div
-              className={`mt-3 text-sm px-2 py-1 rounded-full w-fit mx-auto sm:mx-0 ${
-                theme === "dark" ? "bg-[#1C1C26]" : "bg-gray-200"
-              }`}
-            >
-              {getAge(profileUser?.dateOfBirth)} years old
+            <div className="text-center sm:text-left">
+              <h2
+                className={`text-xl font-semibold hover:text-[#7C3AED]`}
+              >
+                {profileUser?.name}
+              </h2>
+              <p className={`${mutedText} hover:text-[#7C3AED]`}>
+                {profileUser?.email}
+              </p>
+              <div
+                className={`mt-3 text-sm px-2 py-1 rounded-full w-fit mx-auto sm:mx-0 ${
+                  theme === "dark" ? "bg-[#1C1C26]" : "bg-gray-200"
+                }`}
+              >
+                {getAge(profileUser?.dateOfBirth)} years old
+              </div>
             </div>
           </div>
         </div>
+        
       </div>
 
       {/* Tabs */}

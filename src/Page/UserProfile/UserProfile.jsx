@@ -58,22 +58,23 @@ export default function UserProfile() {
       {/* Page Wrapper */}
       <div className="w-full px-6">
 
-      <Link
-        to="/Home"
-        className={`flex items-center gap-2 mb-3 ${accentText}`}
-      >
-        <i className="fa-solid fa-arrow-left" />
-        <span>Back</span>
-      </Link>
+      
         {/* Header */}
-        <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6">
+        <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6 flex justify-between mt-1">
           <h2 className=" text-lg font-semibold text-[#F5D98C]">
             Profile
           </h2>
+          <Link
+            to="/Home"
+            className={`flex items-center gap-2 mb-3 text-[#F5D98C]`}
+          >
+            <span>Home</span>
+            <i className="fa-solid fa-arrow-right" />
+          </Link>
         </div>
 
         {/* Profile Card */}
-        <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow p-6">
+        <div className="max-w-2xl mx-auto bg-white dark:bg-[#0f0f14] rounded-2xl shadow p-6">
           <div className="flex flex-col items-center gap-4">
             <img
               src={userPhoto}
