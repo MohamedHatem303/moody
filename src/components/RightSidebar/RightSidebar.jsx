@@ -1,24 +1,40 @@
+import { useState, useEffect } from "react";
 import { usePosts } from "../../Hooks/usePosts";
 import { useTheme } from "../../Context/themeContext";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+} from "@heroui/react";
 
 export default function RightSidebar() {
   const { theme } = useTheme();
   const { posts } = usePosts();
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [gameUrl, setGameUrl] = useState("");
+
+  /* ===== Prevent background scroll ===== */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  }, [isOpen]);
+
   const trending = [...posts]
     .sort((a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0))
     .slice(0, 3);
 
-  const games = [
-    { title: "🐍 Google Snake", link: "https://snak.ee/" },
-    { title: "🦖 Dino Runner", link: "https://offline-dino-game.firebaseapp.com/" },
-    { title: "❌ Tic-Tac-Toe", link: "https://playtictactoe.org/" },
-  ];
+  /* ===== SINGLE GAME ===== */
+  const game = {
+    title: "🐍 Snake",
+    link: "https://snak.ee/",
+  };
 
+  /* ===== COLORS (UNCHANGED) ===== */
   const wrapperClasses =
     theme === "dark"
-      ? "bg-[#16161D] text-[#EDEDF0] border-[#2F2F45]"
-      : "bg-[#714EA5] text-white border-gray-200";
+      ? "bg-[#16161D] text-[#EDEDF0]"
+      : "bg-[#714EA5] text-white";
 
   const accentText =
     theme === "dark" ? "text-[#7C3AED]" : "text-[#F5D98C]";
@@ -33,80 +49,123 @@ export default function RightSidebar() {
     theme === "dark" ? "text-gray-400" : "text-[#F5D98C]";
 
   const divider =
-    theme === "dark" ? "border-[#2F2F45]" : "border-gray-300 opacity-50";
+    theme === "dark" ? "border-[#2F2F45]" : "border-white/30";
+
+  const modalBg =
+    theme === "dark"
+      ? "bg-[#16161D] text-[#EDEDF0]"
+      : "bg-[#714EA5] text-white";
 
   return (
-    <aside
-      className="
-        fixed
-        right-0
-        top-0
-        w-full
-        lg:top-15
-        lg:bottom-0
-        lg:right-0
-        lg:w-80
-      "
-    >
-      <div
-        className={`
-          rounded-xl
-          p-5
-          lg:shadow-sm
-          space-y-7
-          h-full
-          overflow-y-auto
-          transition-colors
-          ${wrapperClasses}
-        `}
-      >
-        <div>
-          <h2 className={`text-lg font-bold mb-3 flex items-center gap-2 ${accentText}`}>
-            <i className="fa-solid fa-fire" /> Trending Now
-          </h2>
+    <>
+      {/* ===== Sidebar ===== */}
+      <aside className="fixed right-0 top-0 w-full lg:w-80 lg:bottom-0 overflow-hidden">
+        <div
+          className={`
+            h-full
+            overflow-y-auto
+            p-5
+            space-y-7
+            transition-colors
+            ${wrapperClasses}
+          `}
+        >
+          {/* Trending */}
+          <div>
+            <h2 className={`text-lg font-bold mb-3 flex items-center gap-2 ${accentText}`}>
+              <i className="fa-solid fa-fire" /> Trending Now
+            </h2>
 
-          {trending.length > 0 ? (
-            trending.map((p, i) => (
-              <div
-                key={i}
-                className={`mb-2 p-2 rounded-lg transition ${cardBg} ${hoverBg}`}
-              >
-                <p className="text-sm">
-                  {p?.body
-                    ? p.body.slice(0, 40) +
-                      (p.body.length > 40 ? "..." : "")
-                    : "Post"}
-                </p>
-                <span className={`text-xs ${mutedText}`}>
-                  {p?.comments?.length || 0} comments
-                </span>
-              </div>
-            ))
-          ) : (
-            <p className={`text-sm ${mutedText}`}>No trending yet</p>
-          )}
-        </div>
+            {trending.length ? (
+              trending.map((p, i) => (
+                <div
+                  key={i}
+                  className={`mb-2 p-2 rounded-lg transition ${cardBg} ${hoverBg}`}
+                >
+                  <p className="text-sm">
+                    {p?.body?.slice(0, 40) || "Post"}
+                  </p>
+                  <span className={`text-xs ${mutedText}`}>
+                    {p?.comments?.length || 0} comments
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p className={`text-sm ${mutedText}`}>No trending yet</p>
+            )}
+          </div>
 
-        <hr className={divider} />
+          <hr className={divider} />
 
-        <div>
-          <h2 className={`text-lg font-bold mb-4 flex items-center gap-2 ${accentText}`}>
-            <i className="fa-solid fa-gamepad" /> Play Zone
-          </h2>
+          {/* Play Zone */}
+          <div>
+            <h2 className={`text-lg font-bold mb-4 flex items-center gap-2 ${accentText}`}>
+              <i className="fa-solid fa-gamepad" /> Play Zone
+            </h2>
 
-          {games.map((g, i) => (
-            <a
-              key={i}
-              href={g.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`block mb-3 rounded-lg p-2 text-sm transition ${cardBg} ${hoverBg}`}
+            {/* Snake Game */}
+            <button
+              onClick={() => {
+                setGameUrl(game.link);
+                setIsOpen(true);
+              }}
+              className={`w-full text-left mb-3 rounded-lg p-2 text-sm transition ${cardBg} ${hoverBg}`}
             >
-              {g.title}
-            </a>
-          ))}
+              {game.title}
+            </button>
+
+            {/* More Games Placeholder */}
+            <div
+              className={`
+                mt-2
+                rounded-lg
+                p-3
+                text-sm
+                text-center
+                border
+                border-dashed
+                ${theme === "dark" ? "border-[#2F2F45] text-gray-400" : "border-white/40 text-[#F5D98C]"}
+              `}
+            >
+              🎮 More games coming soon…
+            </div>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+
+      {/* ===== Game Modal ===== */}
+      <Modal
+        isOpen={isOpen}
+        placement="center"
+        backdrop="blur"
+        size="5xl"
+        onOpenChange={(open) => {
+          setIsOpen(open);
+          if (!open) setGameUrl("");
+        }}
+        classNames={{ backdrop: "backdrop-blur-md" }}
+      >
+        <ModalContent
+          className={`
+            rounded-xl
+            overflow-hidden
+            ${modalBg}
+            h-[80vh]      /* 📱 mobile */
+            lg:h-[90vh]  /* 💻 laptop */
+          `}
+        >
+          <ModalHeader>🎮 Snake</ModalHeader>
+
+          <ModalBody className="p-0 h-full">
+            <iframe
+              src={gameUrl}
+              title="Snake Game"
+              loading="lazy"
+              className="w-full h-full border-none"
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
