@@ -23,7 +23,7 @@ export default function SinglePost() {
     <Helmet>
       <meta charSet="utf-8" />
       <title>Moody</title>
-      <link rel="icon" href="public/bird.png" />
+      <link rel="icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
     </Helmet>
     <div className={`transition-colors ${pageBg}`}>
