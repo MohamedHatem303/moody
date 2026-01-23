@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePosts } from "../../Hooks/usePosts";
 import { useTheme } from "../../Context/themeContext";
+import { Link } from "react-router-dom";
 import {
   Modal,
   ModalContent,
@@ -8,7 +9,7 @@ import {
   ModalBody,
 } from "@heroui/react";
 
-export default function RightSidebar() {
+export default function RightSidebar({ onItemClick }) {
   const { theme } = useTheme();
   const { posts } = usePosts();
 
@@ -24,13 +25,12 @@ export default function RightSidebar() {
     .sort((a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0))
     .slice(0, 3);
 
-  /* ===== SINGLE GAME ===== */
   const game = {
     title: "🐍 Snake",
     link: "https://snak.ee/",
   };
 
-  /* ===== COLORS (UNCHANGED) ===== */
+  /* ===== COLORS ===== */
   const wrapperClasses =
     theme === "dark"
       ? "bg-[#16161D] text-[#EDEDF0]"
@@ -58,7 +58,6 @@ export default function RightSidebar() {
 
   return (
     <>
-      {/* ===== Sidebar ===== */}
       <aside className="fixed right-0 top-0 w-full lg:w-80 lg:bottom-0 lg:right-0 lg:top-15">
         <div
           className={`
@@ -70,25 +69,33 @@ export default function RightSidebar() {
             ${wrapperClasses}
           `}
         >
-          {/* Trending */}
+          {/* ===== Trending ===== */}
           <div>
-            <h2 className={`text-lg font-bold mb-3 flex items-center gap-2 ${accentText}`}>
+            <h2
+              className={`text-lg font-bold mb-3 flex items-center gap-2 ${accentText}`}
+            >
               <i className="fa-solid fa-fire" /> Trending Now
             </h2>
 
             {trending.length ? (
-              trending.map((p, i) => (
-                <div
+              trending.map((post, i) => (
+                <Link
                   key={i}
-                  className={`mb-2 p-2 rounded-lg transition ${cardBg} ${hoverBg}`}
+                  to={`/SinglePost/${post.id}`}
+                  onClick={onItemClick}   
+                  className="block"
                 >
-                  <p className="text-sm">
-                    {p?.body?.slice(0, 40) || "Post"}
-                  </p>
-                  <span className={`text-xs ${mutedText}`}>
-                    {p?.comments?.length || 0} comments
-                  </span>
-                </div>
+                  <div
+                    className={`mb-2 p-2 rounded-lg transition cursor-pointer ${cardBg} ${hoverBg}`}
+                  >
+                    <p className="text-sm">
+                      {post?.body?.slice(0, 40) || "Post"}
+                    </p>
+                    <span className={`text-xs ${mutedText}`}>
+                      {post?.comments?.length || 0} comments
+                    </span>
+                  </div>
+                </Link>
               ))
             ) : (
               <p className={`text-sm ${mutedText}`}>No trending yet</p>
@@ -97,24 +104,25 @@ export default function RightSidebar() {
 
           <hr className={divider} />
 
-          {/* Play Zone */}
+          {/* ===== Play Zone ===== */}
           <div>
-            <h2 className={`text-lg font-bold mb-4 flex items-center gap-2 ${accentText}`}>
+            <h2
+              className={`text-lg font-bold mb-4 flex items-center gap-2 ${accentText}`}
+            >
               <i className="fa-solid fa-gamepad" /> Play Zone
             </h2>
 
-            {/* Snake Game */}
             <button
               onClick={() => {
                 setGameUrl(game.link);
                 setIsOpen(true);
+                onItemClick?.(); // 👈 يقفل في الموبايل بس
               }}
               className={`w-full text-left mb-3 rounded-lg p-2 text-sm transition ${cardBg} ${hoverBg}`}
             >
               {game.title}
             </button>
 
-            {/* More Games Placeholder */}
             <div
               className={`
                 mt-2
@@ -124,7 +132,11 @@ export default function RightSidebar() {
                 text-center
                 border
                 border-dashed
-                ${theme === "dark" ? "border-[#2F2F45] text-gray-400" : "border-white/40 text-[#F5D98C]"}
+                ${
+                  theme === "dark"
+                    ? "border-[#2F2F45] text-gray-400"
+                    : "border-white/40 text-[#F5D98C]"
+                }
               `}
             >
               🎮 More games coming soon…
@@ -150,8 +162,8 @@ export default function RightSidebar() {
             rounded-xl
             overflow-hidden
             ${modalBg}
-            h-[80vh]      /* 📱 mobile */
-            lg:h-[90vh]  /* 💻 laptop */
+            h-[80vh]
+            lg:h-[90vh]
           `}
         >
           <ModalHeader>🎮 Snake</ModalHeader>

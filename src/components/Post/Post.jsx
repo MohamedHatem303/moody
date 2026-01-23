@@ -154,16 +154,16 @@ export default function Post({ post, allcomment }) {
             allcomment ? "  mb-5" : ""
           }`}
         >
-          <div className="flex justify-between rounded-t-2xl bg-[#6F4BA5]">
-                {allcomment?<h1 className="ms-2 text-[#F5D98C]">Post</h1>:null}
+          <div className={`flex justify-between rounded-t-xl bg-[#6F4BA5] ${allcomment?"h-10":null} `}>
+                {allcomment?<h1 className="ms-2 text-[#F5D98C] flex items-center font-bold">Post</h1>:null}
                 {allcomment &&(
                   <>
                 <Link
                   to="/Home"
                   className={`flex items-center gap-2 text-[#F5D98C]`}
                 >
-                  <span>Home</span>
-                  <i className="fa-solid fa-arrow-right" />
+                  <span className="font-bold">Home</span>
+                  <i className="fa-solid fa-house font-bold me-2" />
                 </Link>
 
                 </>

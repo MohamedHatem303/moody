@@ -76,14 +76,14 @@ export default function Profile() {
     <div className={`w-full p-4 transition-colors ${pageBg}`}>
       {/* Profile Card */}
       <div className={`rounded-xl  ${cardBg}`}>
-        <div className="flex justify-between rounded-t-2xl bg-[#6F4BA5]">
-          <h1 className="ms-2 text-[#F5D98C]">Profile</h1>
+        <div className="flex justify-between rounded-t-xl bg-[#6F4BA5] h-10">
+          <h1 className="ms-2 text-[#F5D98C] flex items-center font-bold">Profile</h1>
           <Link
             to="/Home"
             className={`flex items-center gap-2 me-2 text-[#F5D98C] `}
           >
-            <span>Home</span>
-            <i className="fa-solid fa-arrow-right" />
+            <span className="font-bold">Home</span>
+            <i className="fa-solid fa-house font-bold" />
           </Link>
         </div>
         <div className="p-5">

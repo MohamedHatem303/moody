@@ -11,7 +11,7 @@ export default function Layout() {
 
   const [openLeft, setOpenLeft] = useState(false);
   const [openRight, setOpenRight] = useState(false);
-  const EDGE_SIZE = 100;
+  const EDGE_SIZE = 150;
 
   const handlers = useSwipeable({
     onSwipedRight: (eventData) => {
@@ -66,30 +66,21 @@ export default function Layout() {
     <>
       <Navebar />
 
-      {/* ===== Desktop (LG+) ===== */}
-      <div className={`hidden lg:block mt-16 transition-colors ${pageBg}`}>
+      {/* ===== Desktop ===== */}
+      <div className={`hidden lg:block mt-16 ${pageBg}`}>
         <LeftSidebar />
-
-        <div
-          className="
-            lg:ml-[22rem]
-            lg:mr-[22rem]
-            lg:flex
-            lg:justify-center
-          "
-        >
+        <div className="lg:ml-[22rem] lg:mr-[22rem] lg:flex lg:justify-center">
           <div className="w-full max-w-[1100px] px-4">
             <Outlet />
           </div>
         </div>
-
         <RightSidebar />
       </div>
 
       {/* ===== Mobile & Tablet ===== */}
       <div
         {...handlers}
-        className={`lg:hidden relative overflow-hidden mt-14 transition-colors ${pageBg}`}
+        className={`lg:hidden relative overflow-hidden mt-14 ${pageBg}`}
       >
         {/* Left Drawer */}
         <div
@@ -97,8 +88,8 @@ export default function Layout() {
             openLeft ? "translate-x-0" : "-translate-x-[120%]"
           } ${drawerBg}`}
         >
-          <div className="block lg:hidden h-full overflow-y-auto px-2">
-            <LeftSidebar />
+          <div className="h-full overflow-y-auto px-2">
+            <LeftSidebar onItemClick={() => setOpenLeft(false)} />
           </div>
         </div>
 
@@ -108,8 +99,8 @@ export default function Layout() {
             openRight ? "translate-x-0" : "translate-x-[120%]"
           } ${drawerBg}`}
         >
-          <div className="block lg:hidden h-full overflow-y-auto px-2">
-            <RightSidebar />
+          <div className="h-full overflow-y-auto px-2">
+            <RightSidebar onItemClick={() => setOpenRight(false)} />
           </div>
         </div>
 
@@ -124,7 +115,7 @@ export default function Layout() {
           />
         )}
 
-        {/* Mobile Content */}
+        {/* Content */}
         <div className="p-3">
           <Outlet />
         </div>

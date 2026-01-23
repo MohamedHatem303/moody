@@ -1,147 +1,138 @@
-  import userImage from "../../assets/userImage.png";
-  import { usePosts } from "../../Hooks/usePosts";
-  import { useTheme } from "../../Context/themeContext";
+import userImage from "../../assets/userImage.png";
+import { usePosts } from "../../Hooks/usePosts";
+import { useTheme } from "../../Context/themeContext";
+import { Link } from "react-router-dom";
 
-  export default function LeftSidebar() {
-    const { theme } = useTheme();
-    const { posts } = usePosts();
+export default function LeftSidebar({ onItemClick }) {
+  const { theme } = useTheme();
+  const { posts } = usePosts();
 
-    const today = new Date().toDateString();
+  const today = new Date().toDateString();
 
-    const todaysPosts = posts.filter(
-      (p) => new Date(p?.createdAt).toDateString() === today
-    );
+  const todaysPosts = posts.filter(
+    (p) => new Date(p?.createdAt).toDateString() === today
+  );
 
-    const todaysComments = todaysPosts.reduce(
-      (acc, p) => acc + (p?.comments?.length || 0),
-      0
-    );
+  const todaysComments = todaysPosts.reduce(
+    (acc, p) => acc + (p?.comments?.length || 0),
+    0
+  );
 
-    let mostActivePost = null;
-    if (posts.length) {
-      mostActivePost = [...posts].sort(
-        (a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0)
-      )[0];
+  let mostActivePost = null;
+  if (posts.length) {
+    mostActivePost = [...posts].sort(
+      (a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0)
+    )[0];
+  }
+
+  const userMap = {};
+  posts.forEach((p) => {
+    const id = p?.user?._id;
+    if (!id) return;
+
+    if (!userMap[id]) {
+      userMap[id] = {
+        id,
+        user: p.user,
+        name: p.user.name || "Unknown",
+        photo: p.user.photo,
+        count: 0,
+      };
     }
+    userMap[id].count++;
+  });
 
-    const userMap = {};
-    posts.forEach((p) => {
-      const id = p?.user?._id;
-      if (!id) return;
+  const topVoices = Object.values(userMap)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3);
 
-      if (!userMap[id]) {
-        userMap[id] = {
-          name: p?.user?.name || "Unknown",
-          photo: p?.user?.photo,
-          count: 0,
-        };
-      }
-      userMap[id].count++;
-    });
+  /* ===== COLORS ===== */
+  const lightWrapper = "bg-[#714EA5] text-white border-gray-200";
+  const lightAccent = "text-[#F5D98C]";
+  const lightCard = "bg-white/10";
+  const lightHover = "hover:bg-white/20";
 
-    const topVoices = Object.values(userMap)
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3);
+  const darkWrapper = "bg-[#16161D] text-[#EDEDF0] border-[#2F2F45]";
+  const darkAccent = "text-[#7C3AED]";
+  const darkCard = "bg-[#1C1C26]";
+  const darkHover = "hover:bg-[#2A2A3A]";
 
-    /* ================= COLORS ================= */
+  const wrapper = theme === "dark" ? darkWrapper : lightWrapper;
+  const accent = theme === "dark" ? darkAccent : lightAccent;
+  const card = theme === "dark" ? darkCard : lightCard;
+  const hover = theme === "dark" ? darkHover : lightHover;
+  const divider =
+    theme === "dark" ? "border-[#2F2F45]" : "border-gray-300 opacity-40";
 
-    // Light زي RightSidebar
-    const lightWrapper = "bg-[#714EA5] text-white border-gray-200";
-    const lightAccent = "text-[#F5D98C]";
-    const lightCard = "bg-white/10";
-    const lightHover = "hover:bg-white/20";
-
-    // Dark (زي ما كان)
-    const darkWrapper = "bg-[#16161D] text-[#EDEDF0] border-[#2F2F45]";
-    const darkAccent = "text-[#7C3AED]";
-    const darkCard = "bg-[#1C1C26]";
-    const darkHover = "hover:bg-[#2A2A3A]";
-
-    const wrapper = theme === "dark" ? darkWrapper : lightWrapper;
-    const accent = theme === "dark" ? darkAccent : lightAccent;
-    const card = theme === "dark" ? darkCard : lightCard;
-    const hover = theme === "dark" ? darkHover : lightHover;
-    const divider =
-      theme === "dark" ? "border-[#2F2F45]" : "border-gray-300 opacity-40";
-
-    return (
-      <aside
-        className="
-          fixed
-          left-0
-          top-0
-          w-full
-          lg:top-15
-          lg:bottom-0
-          lg:left-0
-          lg:w-80
-        "
+  return (
+    <aside
+      className="
+        fixed
+        left-0
+        top-0
+        w-full
+        lg:top-15
+        lg:bottom-0
+        lg:left-0
+        lg:w-80
+      "
+    >
+      <div
+        className={`
+          p-4
+          space-y-4
+          h-full
+          overflow-y-auto
+          transition-colors
+          ${wrapper}
+        `}
       >
-        <div
-          className={`
-           
-            p-4
-            space-y-4
-            h-full
-            overflow-y-auto
-            transition-colors
-            ${wrapper}
-          `}
-        >
-          {/* Logo */}
-          <div className="flex flex-col items-center">
-            <img src="/bird.png" className="w-17 h-17" />
-            <h2 className={`text-3xl font-semibold ${accent}`}>
-              Moody
-            </h2>
-            <p className={`text-sm mt-1 ${accent}`}>
-              Community Insights
-            </p>
-          </div>
+        {/* Logo */}
+        <Link to="/Home" onClick={onItemClick} >
+        <div className="flex flex-col items-center">
+          <img src="/bird.png" className="w-17 h-17" />
+          <h2 className={`text-3xl font-semibold ${accent}`}>Moody</h2>
+        </div>
+        </Link>
+        <hr className={divider} />
 
-          <hr className={divider} />
+        {/* Snapshot */}
+        <div>
+          <h2 className={`text-lg font-bold flex items-center gap-2 mb-2 ${accent}`}>
+            <i className="fa-solid fa-chart-line" />
+            Community Snapshot
+          </h2>
 
-          {/* Snapshot */}
-          <div>
-            <h2 className={`text-lg font-bold flex items-center gap-2 mb-2 ${accent}`}>
-              <i className="fa-solid fa-chart-line" />
-              Community Snapshot
-            </h2>
+          <p>
+            Posts Today:
+            <b className={`ms-1 ${accent}`}>{todaysPosts.length}</b>
+          </p>
 
-            <p>
-              Posts Today:
-              <b className={`ms-1 ${accent}`}>{todaysPosts.length}</b>
-            </p>
+          <p>
+            Comments Today:
+            <b className={`ms-1 ${accent}`}>{todaysComments}</b>
+          </p>
+        </div>
 
-            <p>
-              Comments Today:
-              <b className={`ms-1 ${accent}`}>{todaysComments}</b>
-            </p>
+        <hr className={divider} />
 
-            <p>
-              Top Post:
-              <b className={`ms-1 ${accent}`}>
-                {mostActivePost?.body
-                  ? mostActivePost.body.slice(0, 35) +
-                    (mostActivePost.body.length > 35 ? "..." : "")
-                  : "No posts yet"}
-              </b>
-            </p>
-          </div>
+        {/* Top Voices */}
+        <div>
+          <h2 className={`text-lg font-bold flex items-center gap-2 mb-1 ${accent}`}>
+            <i className="fa-solid fa-user-astronaut" />
+            Top Voices
+          </h2>
 
-          <hr className={divider} />
-
-          {/* Top Voices */}
-          <div>
-            <h2 className={`text-lg font-bold flex items-center gap-2 mb-1 ${accent}`}>
-              <i className="fa-solid fa-user-astronaut" />
-              Top Voices
-            </h2>
-
-            {topVoices.length > 0 ? (
-              topVoices.map((u, i) => (
+          {topVoices.length ? (
+            topVoices.map((u, i) => (
+              <Link
+                key={i}
+                to={`/UserProfile/${u.id}`}
+                state={{ user: u.user }}
+                onClick={onItemClick}   
+                className="block"
+              >
                 <div
-                  key={i}
                   className={`flex items-center justify-between mb-2 p-2 rounded-lg transition ${card} ${hover}`}
                 >
                   <div className="flex items-center gap-3">
@@ -160,14 +151,16 @@
                       </p>
                     </div>
                   </div>
+
                   <i className={`fa-solid fa-crown ${accent}`}></i>
                 </div>
-              ))
-            ) : (
-              <p className={`text-sm ${accent}`}>No data</p>
-            )}
-          </div>
+              </Link>
+            ))
+          ) : (
+            <p className={`text-sm ${accent}`}>No data</p>
+          )}
         </div>
-      </aside>
-    );
-  }
+      </div>
+    </aside>
+  );
+}

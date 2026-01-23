@@ -63,25 +63,25 @@ export default function UserProfile() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
     </Helmet>
       {/* Page Wrapper */}
-      <div className="w-full px-6">
+      <div className="w-full px-6 min-h-screen">
 
       
         {/* Header */}
-        <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6 flex justify-between mt-1">
-          <h2 className=" text-lg font-semibold text-[#F5D98C]">
+        <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6 flex justify-between mt-1 max-h-10 ">
+          <h2 className=" text-lg font-semibold text-[#F5D98C] flex items-center">
             Profile
           </h2>
           <Link
             to="/Home"
-            className={`flex items-center gap-2 mb-3 text-[#F5D98C]`}
+            className={`flex items-center gap-2  text-[#F5D98C]`}
           >
-            <h2 className="text-lg font-semibold">Home</h2>
-            <i className="fa-solid fa-arrow-right mt-1" />
+            <h2 className="text-lg font-semibold flex items-center">Home</h2>
+            <i className="fa-solid fa-house font-bold" />
           </Link>
         </div>
 
         {/* Profile Card */}
-        <div className="max-w-2xl mx-auto bg-white dark:bg-[#0f0f14] rounded-2xl shadow p-6">
+        <div className="max-w-2xl mx-auto bg-white dark:bg-[#0f0f14] rounded-2xl  p-6">
           <div className="flex flex-col items-center gap-4">
             <img
               src={userPhoto}

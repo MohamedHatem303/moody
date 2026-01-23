@@ -159,7 +159,7 @@ export default function Setting() {
               className={`flex items-center gap-2 mb-3 text-[#7C3AED]`}
             >
               <h1 className="text-xl font-semibold">Home</h1>
-              <i className="fa-solid fa-arrow-right fa-lg" />
+              <i className="fa-solid fa-house fa-lg" />
             </Link>
           </div>
         </div>
