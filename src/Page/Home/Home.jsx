@@ -5,6 +5,7 @@ import CreatePost from "../../components/CreatePost/CreatePost";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import { useTheme } from "../../Context/themeContext";
 import { Helmet } from "react-helmet";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -21,10 +22,15 @@ export default function Home() {
     const handleScroll = () => {
       if (!hasNextPage || isFetchingNextPage) return;
 
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const threshold = document.body.offsetHeight - 500;
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
 
-      if (scrollPosition >= threshold) {
+      const distanceFromBottom =
+        fullHeight - (scrollTop + windowHeight);
+
+      // prefetch قبل النهاية بـ 1000px
+      if (distanceFromBottom <= 7000) {
         fetchNextPage();
       }
     };
@@ -50,8 +56,9 @@ export default function Home() {
         <meta charSet="utf-8" />
         <title>Moody</title>
         <link rel="icon" href="/bird.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
+
       <div className={`transition-colors ${pageBg}`}>
         <CreatePost />
 

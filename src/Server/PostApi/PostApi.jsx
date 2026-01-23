@@ -9,7 +9,7 @@ export async function getAllPosts({ pageParam = 1 }) {
       },
       params: {
         page: pageParam,
-        limit: 20,
+        limit: 50,
         sort: "-createdAt",
       },
     }
