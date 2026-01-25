@@ -2,6 +2,7 @@ import userImage from "../../assets/userImage.png";
 import { usePosts } from "../../Hooks/usePosts";
 import { useTheme } from "../../Context/themeContext";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function LeftSidebar({ onItemClick }) {
   const { theme } = useTheme();
@@ -63,6 +64,12 @@ export default function LeftSidebar({ onItemClick }) {
   const hover = theme === "dark" ? darkHover : lightHover;
   const divider =
     theme === "dark" ? "border-[#2F2F45]" : "border-gray-300 opacity-40";
+  function love() {
+    toast('Thank you for visiting Moody❤️');
+    onItemClick();
+  }
+ 
+
 
   return (
     <aside
@@ -84,6 +91,7 @@ export default function LeftSidebar({ onItemClick }) {
           h-full
           overflow-y-auto
           transition-colors
+          no-scrollbar
           ${wrapper}
         `}
       >
@@ -160,7 +168,67 @@ export default function LeftSidebar({ onItemClick }) {
             <p className={`text-sm ${accent}`}>No data</p>
           )}
         </div>
+      <footer className="hidden lg:block text-[#FFf  ] py-6 relative -bottom-38 lg:bottom-0 w-full">
+        <div className="container mx-auto text-center space-y-5">
+          {/* Social Icons */}
+          <div className="flex justify-center gap-5 text-xl icons">
+            <a onClick={onItemClick}  target="_blank" href="https://www.facebook.com/share/1GgLvCTiJS/" className="hover:text-blue-500 transition">
+              <i className="fa-brands fa-facebook" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://www.instagram.com/mohamed_hatem.303" className="hover:text-pink-500 transition">
+              <i className="fa-brands fa-instagram" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://wa.me/qr/XANON7AKNBE6F1" className="hover:text-green-500 transition">
+              <i className="fa-brands fa-whatsapp" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://www.snapchat.com/add/mohamed3hatem" className="hover:text-yellow-400 transition">
+              <i className="fa-brands fa-snapchat" />
+            </a>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedhatm303@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-red-400 transition"
+            >
+              <i className="fa-solid fa-envelope" />
+            </a>
+          </div>
+          {/* Credit */}
+          <p className="text-sm mb-0">
+            Designed &amp; Developed by Eng   
+          </p>
+          <span onClick={love} className="text-[#F5D98C] font-semibold">Mohamed Hatem</span>
+        </div>
+      </footer>
       </div>
+<footer className=" lg:hidden text-[#FFf  ] py-6 relative -bottom-28 lg:bottom-0 w-full">
+        <div className="container mx-auto text-center space-y-5">
+          {/* Social Icons */}
+          <div className="flex justify-center gap-5 text-xl icons">
+            <a onClick={onItemClick}  target="_blank" href="https://www.facebook.com/share/1GgLvCTiJS/" className="hover:text-blue-500 transition">
+              <i className="fa-brands fa-facebook" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://www.instagram.com/mohamed_hatem.303" className="hover:text-pink-500 transition">
+              <i className="fa-brands fa-instagram" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://wa.me/qr/XANON7AKNBE6F1" className="hover:text-green-500 transition">
+              <i className="fa-brands fa-whatsapp" />
+            </a>
+            <a onClick={onItemClick}  target="_blank" href="https://www.snapchat.com/add/mohamed3hatem" className="hover:text-yellow-400 transition">
+              <i className="fa-brands fa-snapchat" />
+            </a>
+            <a onClick={onItemClick} href="mailto:mohamedhatm303@gmail.com" className="hover:text-red-400 transition">
+              <i className="fa-solid fa-envelope" />
+            </a>
+          </div>
+          {/* Credit */}
+          <p className="text-sm mb-0">
+            Designed &amp; Developed by Eng   
+          </p>
+          <span onClick={love} className="text-[#F5D98C] font-semibold">Mohamed Hatem</span>
+        </div>
+      </footer>
+
     </aside>
   );
 }

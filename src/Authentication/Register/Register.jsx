@@ -142,7 +142,7 @@ export default function Register() {
                   {...register('dateOfBirth')} label="DateOfBirth" type="date" color={'warning'}/>
                   <Select 
                   isInvalid={Boolean(errors.gender&& touchedFields.gender)} errorMessage={errors.gender?.message}
-                  {...register('gender')} label="Select an gender" color={'warning'}>
+                  {...register('gender')} label="Select gender" color={'warning'}>
                     <SelectItem key={'male'} color={'warning'}>Male</SelectItem>
                     <SelectItem key={'female'} color={'warning'}>Female</SelectItem>
                   </Select>

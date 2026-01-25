@@ -57,7 +57,6 @@ function AppContent() {
       <HeroUIProvider theme={theme === "dark" ? darkTheme : undefined}>
         <AuthContextProvider>
           <RouterProvider router={routers} />
-          <ReactQueryDevtools />
           <Toaster />
         </AuthContextProvider>
       </HeroUIProvider>

@@ -117,7 +117,7 @@ export default function Layout() {
 
         {/* Content */}
         <div className="p-3">
-          <Outlet />
+          <Outlet context={{ openLeft, openRight }} />
         </div>
       </div>
     </>

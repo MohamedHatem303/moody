@@ -66,6 +66,7 @@ export default function RightSidebar({ onItemClick }) {
             p-5
             space-y-7
             transition-colors
+            no-scrollbar
             ${wrapperClasses}
           `}
         >
