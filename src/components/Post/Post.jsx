@@ -97,13 +97,11 @@ export default function Post({ post, allcomment }) {
     const postLink = `${window.location.origin}/SinglePost/${post.id}`;
 
     if (navigator.clipboard && window.isSecureContext) {
-      // للـ browsers الحديثة
       navigator.clipboard
         .writeText(postLink)
         .then(() => toast.success("Link copied"))
         .catch(() => fallbackCopy(postLink));
     } else {
-      // fallback للموبايل
       fallbackCopy(postLink);
     }
   }
@@ -129,7 +127,6 @@ export default function Post({ post, allcomment }) {
     document.body.removeChild(textarea);
   }
 
-
   const cardClasses =
     theme === "dark"
       ? "bg-[#16161D] border-[#2F2F45] text-[#EDEDF0]"
@@ -137,8 +134,7 @@ export default function Post({ post, allcomment }) {
 
   const mutedText = theme === "dark" ? "text-gray-400" : "text-gray-500";
 
-  const accentText =
-    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
+  const accentText = theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
     <>
       <div
@@ -146,205 +142,207 @@ export default function Post({ post, allcomment }) {
           !allcomment ? "border rounded-2xl shadow-sm" : ""
         }  w-full overflow-hidden my-3 ${cardClasses}`}
       >
-        <div className={`${allcomment ? "border  rounded-2xl   border-gray-300 dark:border-gray-700" : ""}`}>
-
-        
         <div
-          className={`${
-            allcomment ? "  mb-5" : ""
-          }`}
+          className={`${allcomment ? "border  rounded-2xl   border-gray-300 dark:border-gray-700" : ""}`}
         >
-          <div className={`flex justify-between rounded-t-xl bg-[#6F4BA5] ${allcomment?"h-10":null} `}>
-                {allcomment?<h1 className="ms-2 text-[#F5D98C] flex items-center font-bold">Post</h1>:null}
-                {allcomment &&(
-                  <>
-                <Link
-                  to="/Home"
-                  className={`flex items-center gap-2 text-[#F5D98C]`}
-                >
-                  <span className="font-bold">Home</span>
-                  <i className="fa-solid fa-house font-bold me-2" />
-                </Link>
-
-                </>
-                )}
-              </div>
-              {allcomment?<hr className="mb-2 border-gray-300 dark:border-gray-700" />:null}
-          <div className="flex justify-between">
-            <Link
-              to={
-                userData?._id === post.user._id
-                  ? "/Profile"
-                  : `/UserProfile/${post.user._id}`
-              }
-              state={
-                userData?._id === post.user._id
-                  ? null
-                  : { user: post.user }
-              }
-              className="flex items-center gap-3 py-5 px-2"
-            >
-              <img
-                src={
-                  post.user?.photo?.includes("default")
-                    ? userImage
-                    : post.user?.photo
-                }
-                className="w-10 h-10 rounded-full"
-              />
-              <div>
-                <p className="font-semibold">{post.user.name}</p>
-                <span className={`text-sm ${mutedText}`}>
-                  {getTimeAgo(post.createdAt)}
-                </span>
-              </div>
-            </Link>
-                {userData?._id === post.user._id && (
-                  <div className="p-3">
-                    <PostDropdown
-                      postId={post._id}
-                      postBodyOld={post.body}
-                      postImageOld={post.image}
-                      allcomment={allcomment}
-                    />
-                  </div>
-                )}
-          </div>
-
-          <hr className="my-2 border-gray-300 dark:border-gray-700" />
-
-          {post.body && (
-            <p className="mt-3 px-4 mb-2">{post.body}</p>
-          )}
-
-          {post.image && (
+          <div className={`${allcomment ? "  mb-5" : ""}`}>
             <div
-              className="w-full cursor-pointer"
-              onClick={() => openImageModal(post.image)}
+              className={`flex justify-between rounded-t-xl bg-[#6F4BA5] ${allcomment ? "h-10" : null} `}
             >
-              <img
-                src={post.image}
-                className="w-full object-cover rounded-md"
-              />
+              {allcomment ? (
+                <h1 className="ms-2 text-[#F5D98C] flex items-center font-bold">
+                  Post
+                </h1>
+              ) : null}
+              {allcomment && (
+                <>
+                  <Link
+                    to="/Home"
+                    className={`flex items-center gap-2 text-[#F5D98C]`}
+                  >
+                    <span className="font-bold">Home</span>
+                    <i className="fa-solid fa-house font-bold me-2" />
+                  </Link>
+                </>
+              )}
             </div>
-          )}
+            {allcomment ? (
+              <hr className="mb-2 border-gray-300 dark:border-gray-700" />
+            ) : null}
+            <div className="flex justify-between">
+              <Link
+                to={
+                  userData?._id === post.user._id
+                    ? "/Profile"
+                    : `/UserProfile/${post.user._id}`
+                }
+                state={
+                  userData?._id === post.user._id ? null : { user: post.user }
+                }
+                className="flex items-center gap-3 py-5 px-2"
+              >
+                <img
+                  src={
+                    post.user?.photo?.includes("default")
+                      ? userImage
+                      : post.user?.photo
+                  }
+                  className="w-10 h-10 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold">{post.user.name}</p>
+                  <span className={`text-sm ${mutedText}`}>
+                    {getTimeAgo(post.createdAt)}
+                  </span>
+                </div>
+              </Link>
+              {userData?._id === post.user._id && (
+                <div className="p-3">
+                  <PostDropdown
+                    postId={post._id}
+                    postBodyOld={post.body}
+                    postImageOld={post.image}
+                    allcomment={allcomment}
+                  />
+                </div>
+              )}
+            </div>
 
-          <div
-            className={`flex text-sm px-4 mt-2 ${
-              !allcomment ? "justify-between" : ""
-            } ${mutedText}`}
-          >
-            <span>{likes} likes</span>
-            {!allcomment && <span>{post.comments?.length || 0} comments</span>}
-          </div>
+            <hr className="my-2 border-gray-300 dark:border-gray-700" />
 
-          <hr className="my-3 border-gray-300 dark:border-gray-700" />
+            {post.body && <p className="mt-3 px-4 mb-2">{post.body}</p>}
 
-          <div className="flex justify-around px-6 pb-3 select-none">
-            <button
-              onClick={handleLike}
-              className={`flex items-center gap-2 transition ${
-                liked ? "text-[#7C3AED]" : mutedText
-              }`}
+            {post.image && (
+              <div
+                className="w-full cursor-pointer"
+                onClick={() => openImageModal(post.image)}
+              >
+                <img
+                  src={post.image}
+                  className="w-full object-cover rounded-md"
+                />
+              </div>
+            )}
+
+            <div
+              className={`flex text-sm px-4 mt-2 ${
+                !allcomment ? "justify-between" : ""
+              } ${mutedText}`}
             >
-              <i
-                className={`${
-                  liked ? "fa-solid" : "fa-regular"
-                } fa-heart text-lg`}
-              />
-              {liked ? "Liked" : "Like"}
-            </button>
+              <span>{likes} likes</span>
+              {!allcomment && (
+                <span>{post.comments?.length || 0} comments</span>
+              )}
+            </div>
 
-            {!allcomment && (
+            <hr className="my-3 border-gray-300 dark:border-gray-700" />
+
+            <div className="flex justify-around px-6 pb-3 select-none">
               <button
-                onClick={handleComment}
+                onClick={handleLike}
                 className={`flex items-center gap-2 transition ${
-                  showCommentBox ? "text-[#7C3AED]" : mutedText
+                  liked ? "text-[#7C3AED]" : mutedText
                 }`}
               >
                 <i
                   className={`${
-                    showCommentBox ? "fa-solid" : "fa-regular"
-                  } fa-comment text-lg`}
+                    liked ? "fa-solid" : "fa-regular"
+                  } fa-heart text-lg`}
                 />
-                Comment
+                {liked ? "Liked" : "Like"}
               </button>
-            )}
 
-            <button
-              onClick={handleShare}
-              className={`flex items-center gap-2 transition ${mutedText}`}
-            >
-              <i className="fa-solid fa-arrow-up-from-bracket text-lg" />
-              Share
-            </button>
+              {!allcomment && (
+                <button
+                  onClick={handleComment}
+                  className={`flex items-center gap-2 transition ${
+                    showCommentBox ? "text-[#7C3AED]" : mutedText
+                  }`}
+                >
+                  <i
+                    className={`${
+                      showCommentBox ? "fa-solid" : "fa-regular"
+                    } fa-comment text-lg`}
+                  />
+                  Comment
+                </button>
+              )}
+
+              <button
+                onClick={handleShare}
+                className={`flex items-center gap-2 transition ${mutedText}`}
+              >
+                <i className="fa-solid fa-arrow-up-from-bracket text-lg" />
+                Share
+              </button>
+            </div>
           </div>
-        </div>
 
-        {shouldShowCommentBox && (
-          <form
-            onSubmit={createComment}
-            className={`flex items-center gap-2 px-4 pb-3 ${
-              allcomment ? "pt-3" : ""
-            }`}
-          >
-            <input
-              value={commentContent}
-              onChange={(e) => setcommentContent(e.target.value)}
-              placeholder="Write a comment..."
-              className={`flex-1 min-w-0 px-4 py-2 rounded-full border outline-none ${
-                theme === "dark"
-                  ? "bg-[#1C1C26] border-[#2F2F45] text-white"
-                  : "bg-white border-gray-300"
+          {shouldShowCommentBox && (
+            <form
+              onSubmit={createComment}
+              className={`flex items-center gap-2 px-4 pb-3 ${
+                allcomment ? "pt-3" : ""
               }`}
-            />
-            <Button
-              isLoading={commentIsLoading}
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-5 py-2 rounded-full"
-              type="submit"
             >
-              <i className="fa-regular fa-paper-plane"></i>
-            </Button>
-          </form>
-        )}
-
-        {!allcomment && post.comments?.length > 0 && (
-          <>
-            <CommentsCard
-              id={post.user._id}
-              comment={post.comments[post.comments.length - 1]}
-              getTimeAgo={getTimeAgo}
-              allcomment={false}
-            />
-
-            <Link to={`/SinglePost/${post.id}`}>
-              <p className="text-[#7C3AED] font-medium hover:underline my-1 px-4 pb-4 ms-10">
-                View all {post.comments.length} comments
-              </p>
-            </Link>
-          </>
-        )}
-
-        {allcomment && post.comments?.length > 0 && (
-          <>
-            <h1 className="font-bold text-lg px-4 pb-2">
-              All Comments ({post.comments.length})
-            </h1>
-
-            {post.comments.map((comment) => (
-              <CommentsCard
-                key={comment._id}
-                id={post.user._id}
-                comment={comment}
-                getTimeAgo={getTimeAgo}
-                allcomment={true}
+              <input
+                value={commentContent}
+                onChange={(e) => setcommentContent(e.target.value)}
+                placeholder="Write a comment..."
+                className={`flex-1 min-w-0 px-4 py-2 rounded-full border outline-none ${
+                  theme === "dark"
+                    ? "bg-[#1C1C26] border-[#2F2F45] text-white"
+                    : "bg-white border-gray-300"
+                }`}
               />
-            ))}
-          </>
-        )}
+              <Button
+                isLoading={commentIsLoading}
+                className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-5 py-2 rounded-full"
+                type="submit"
+              >
+                <i className="fa-regular fa-paper-plane"></i>
+              </Button>
+            </form>
+          )}
+
+          {!allcomment && post.comments?.length > 0 && (
+            <>
+              <CommentsCard
+                id={post.user._id}
+                comment={post.comments[post.comments.length - 1]}
+                getTimeAgo={getTimeAgo}
+                allcomment={false}
+              />
+
+              <Link to={`/SinglePost/${post.id}`}>
+                <p className="text-[#7C3AED] font-medium hover:underline my-1 px-4 pb-4 ms-10">
+                  View all {post.comments.length} comments
+                </p>
+              </Link>
+            </>
+          )}
+
+          {allcomment && post.comments?.length > 0 && (
+            <>
+              <h1 className="font-bold text-lg px-4 pb-2">
+                All Comments ({post.comments.length})
+              </h1>
+
+              {post.comments.map((comment) => (
+                <CommentsCard
+                  key={comment._id}
+                  id={post.user._id}
+                  comment={comment}
+                  getTimeAgo={getTimeAgo}
+                  allcomment={true}
+                />
+              ))}
+            </>
+          )}
+        </div>
       </div>
-</div>
       <Modal
+        placement={"center"}
         backdrop="blur"
         isOpen={isImageOpen}
         onOpenChange={onOpenChangeImage}

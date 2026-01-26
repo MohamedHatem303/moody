@@ -112,7 +112,7 @@ export default function Setting() {
       }
     } catch (err) {
       setPasswordMessage(
-        err?.response?.data?.error || "Failed to change password"
+        err?.response?.data?.error || "Failed to change password",
       );
     } finally {
       setLoadingPassword(false);
@@ -129,200 +129,202 @@ export default function Setting() {
       ? "bg-[#16161D] border-[#2F2F45]"
       : "bg-white border-gray-200";
 
-  const headerClasses =
-    theme === "dark" ? "bg-[#1C1C26]" : "bg-[#714EA5]";
+  const headerClasses = theme === "dark" ? "bg-[#1C1C26]" : "bg-[#714EA5]";
 
-  const headerText =
-    theme === "dark" ? "text-[#EDEDF0]" : "text-[#F5D98C]";
+  const headerText = theme === "dark" ? "text-[#EDEDF0]" : "text-[#F5D98C]";
 
-  const accentText =
-    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
+  const accentText = theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   return (
     <>
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>Moody</title>
-      <link rel="icon" href="/bird.svg" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-    </Helmet>
-    <div className={`mt-6 p-4 transition-colors ${pageClasses}`}>
-      <div className="w-full">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold mb-3 text-[#7C3AED]">
-              Settings
-            </h1>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Moody</title>
+        <link rel="icon" href="/bird.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Helmet>
+      <div className={`mt-6 p-4 transition-colors ${pageClasses}`}>
+        <div className="w-full">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold mb-3 text-[#7C3AED]">
+                Settings
+              </h1>
+            </div>
+            <div>
+              <Link
+                to="/Home"
+                className={`flex items-center gap-2 mb-3 text-[#7C3AED]`}
+              >
+                <h1 className="text-xl font-semibold">Home</h1>
+                <i className="fa-solid fa-house fa-lg" />
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link
-              to="/Home"
-              className={`flex items-center gap-2 mb-3 text-[#7C3AED]`}
-            >
-              <h1 className="text-xl font-semibold">Home</h1>
-              <i className="fa-solid fa-house fa-lg" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Change Profile Photo */}
-        <div className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}>
-          <div className={`p-5 ${headerClasses}`}>
-            <h2 className={`text-lg font-bold ${headerText}`}>
-              Change Profile Photo
-            </h2>
-          </div>
-
-          <form
-            onSubmit={handleSave}
-            className="p-6 flex flex-col items-center gap-5"
+          <div
+            className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}
           >
-            <img
-              src={
-                previewUrl
-                  ? previewUrl
-                  : userData?.photo?.includes("default")
-                  ? userImage
-                  : userData?.photo
-              }
-              className="w-32 h-32 rounded-full border-4 border-[#7C3AED] object-cover shadow"
-              alt="profile preview"
-            />
-
-            <div className="flex gap-4">
-              <button
-                type="button"
-                onClick={handleChooseClick}
-                className={`px-5 py-2 rounded-xl transition ${
-                  theme === "dark"
-                    ? "bg-[#714EA5] text-[#F5D98C]"
-                    : "bg-[#714EA5] text-[#F5D98C]"
-                }`}
-              >
-                Choose Photo
-              </button>
-
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleSelect}
-                className="hidden"
-              />
-
-              <button
-                disabled={!file || isSaving}
-                type="submit"
-                className={`px-5 py-2 rounded-xl transition ${
-                  file
-                    ? "bg-[#7C3AED] text-white hover:scale-105"
-                    : "bg-[#2A2A3A] text-white cursor-not-allowed"
-                }`}
-              >
-                {isSaving ? "Saving..." : "Save Changes"}
-              </button>
+            <div className={`p-5 ${headerClasses}`}>
+              <h2 className={`text-lg font-bold ${headerText}`}>
+                Change Profile Photo
+              </h2>
             </div>
 
-            <p className="text-sm opacity-70">
-              Profile photos help others recognize you
-            </p>
-
-            {message && <p className="text-sm opacity-70">{message}</p>}
-          </form>
-        </div>
-
-        {/* Change Password */}
-        <div className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}>
-          <div className={`p-5 ${headerClasses}`}>
-            <h2 className={`text-lg font-bold ${headerText}`}>
-              Change Password
-            </h2>
-          </div>
-
-          <div className="p-5 flex justify-between items-center">
-            <span className="opacity-70">Password Settings</span>
-            <button
-              onClick={onOpen}
-              className="px-4 py-2 rounded-xl bg-[#714EA5] text-[#F5D98C] hover:scale-105 transition"
+            <form
+              onSubmit={handleSave}
+              className="p-6 flex flex-col items-center gap-5"
             >
-              Change Password
-            </button>
-          </div>
-        </div>
-
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
-          <ModalContent className={theme === "dark" ? "bg-[#16161D] text-white" : ""}>
-            {(onClose) => (
-              <>
-                <ModalHeader className="text-[#7C3AED]">
-                  Change Password
-                </ModalHeader>
-
-                <form onSubmit={handleChangePassword}>
-                  <ModalBody className="gap-4">
-                    <Input
-                      type={showOldPassword ? "text" : "password"}
-                      label="Current Password"
-                      value={oldPassword}
-                      onChange={(e) => setOldPassword(e.target.value)}
-                      required
-                    />
-                    <Input
-                      type={showNewPassword ? "text" : "password"}
-                      label="New Password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      required
-                    />
-                    {passwordMessage && (
-                      <p className="text-sm text-center opacity-70">
-                        {passwordMessage}
-                      </p>
-                    )}
-                  </ModalBody>
-
-                  <ModalFooter>
-                    <Button variant="light" onPress={onClose}>
-                      Cancel
-                    </Button>
-                    <Button
-                      type="submit"
-                      isDisabled={loadingPassword}
-                      className="bg-[#7C3AED] text-white"
-                    >
-                      {loadingPassword ? "Saving..." : "Save"}
-                    </Button>
-                  </ModalFooter>
-                </form>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-
-        {/* Dark Mode */}
-        <div className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}>
-          <div className={`p-5 ${headerClasses}`}>
-            <h2 className={`text-lg font-bold ${headerText}`}>
-              Dark Mode
-            </h2>
-          </div>
-
-          <div className="p-5 flex justify-between items-center">
-            <span className="opacity-70">Enable Dark Mode</span>
-
-            <label className="relative inline-flex cursor-pointer items-center">
-              <input
-                type="checkbox"
-                checked={theme === "dark"}
-                onChange={toggleTheme}
-                className="peer sr-only"
+              <img
+                src={
+                  previewUrl
+                    ? previewUrl
+                    : userData?.photo?.includes("default")
+                      ? userImage
+                      : userData?.photo
+                }
+                className="w-32 h-32 rounded-full border-4 border-[#7C3AED] object-cover shadow"
+                alt="profile preview"
               />
-              <div className="w-12 h-6 rounded-full bg-gray-300 peer-checked:bg-[#7C3AED] transition" />
-              <span className="absolute left-1 top-[3px] w-5 h-5 bg-white rounded-full transition peer-checked:translate-x-6" />
-            </label>
+
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={handleChooseClick}
+                  className={`px-5 py-2 rounded-xl transition ${
+                    theme === "dark"
+                      ? "bg-[#714EA5] text-[#F5D98C]"
+                      : "bg-[#714EA5] text-[#F5D98C]"
+                  }`}
+                >
+                  Choose Photo
+                </button>
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleSelect}
+                  className="hidden"
+                />
+
+                <button
+                  disabled={!file || isSaving}
+                  type="submit"
+                  className={`px-5 py-2 rounded-xl transition ${
+                    file
+                      ? "bg-white  text-[#7C3AED] hover:scale-105"
+                      : "bg-white  text-[#7C3AED]  cursor-not-allowed"
+                  }`}
+                >
+                  {isSaving ? "Saving..." : "Save Changes"}
+                </button>
+              </div>
+
+              <p className="text-sm opacity-70">
+                Profile photos help others recognize you
+              </p>
+
+              {message && <p className="text-sm opacity-70">{message}</p>}
+            </form>
+          </div>
+          <div
+            className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}
+          >
+            <div className={`p-5 ${headerClasses}`}>
+              <h2 className={`text-lg font-bold ${headerText}`}>
+                Change Password
+              </h2>
+            </div>
+
+            <div className="p-5 flex justify-between items-center">
+              <span className="opacity-70">Password Settings</span>
+              <button
+                onClick={onOpen}
+                className="px-4 py-2 rounded-xl bg-[#714EA5] text-[#F5D98C] hover:scale-105 transition"
+              >
+                Change Password
+              </button>
+            </div>
+          </div>
+
+          <Modal
+            placement={"center"}
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            backdrop="blur"
+          >
+            <ModalContent
+              className={theme === "dark" ? "bg-[#16161D] text-white" : ""}
+            >
+              {(onClose) => (
+                <>
+                  <ModalHeader className="text-[#7C3AED]">
+                    Change Password
+                  </ModalHeader>
+
+                  <form onSubmit={handleChangePassword}>
+                    <ModalBody className="gap-4">
+                      <Input
+                        type={showOldPassword ? "text" : "password"}
+                        label="Current Password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        required
+                      />
+                      <Input
+                        type={showNewPassword ? "text" : "password"}
+                        label="New Password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                      />
+                      {passwordMessage && (
+                        <p className="text-sm text-center opacity-70">
+                          {passwordMessage}
+                        </p>
+                      )}
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button variant="light" onPress={onClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        isDisabled={loadingPassword}
+                        className="bg-[#7C3AED] text-white"
+                      >
+                        {loadingPassword ? "Saving..." : "Save"}
+                      </Button>
+                    </ModalFooter>
+                  </form>
+                </>
+              )}
+            </ModalContent>
+          </Modal>
+          <div
+            className={`rounded-xl shadow-sm border overflow-hidden mb-6 ${cardClasses}`}
+          >
+            <div className={`p-5 ${headerClasses}`}>
+              <h2 className={`text-lg font-bold ${headerText}`}>Dark Mode</h2>
+            </div>
+
+            <div className="p-5 flex justify-between items-center">
+              <span className="opacity-70">Enable Dark Mode</span>
+
+              <label className="relative inline-flex cursor-pointer items-center">
+                <input
+                  type="checkbox"
+                  checked={theme === "dark"}
+                  onChange={toggleTheme}
+                  className="peer sr-only"
+                />
+                <div className="w-12 h-6 rounded-full bg-gray-300 peer-checked:bg-[#7C3AED] transition" />
+                <span className="absolute left-1 top-[3px] w-5 h-5 bg-white rounded-full transition peer-checked:translate-x-6" />
+              </label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

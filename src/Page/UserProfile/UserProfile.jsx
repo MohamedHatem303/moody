@@ -21,9 +21,7 @@ export default function UserProfile() {
   const { isOpen, onOpenChange } = useDisclosure();
   const [imageUrl, setImageUrl] = useState("");
 
-  const accentText =
-    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
-  // حماية لو الصفحة اتفتحت direct
+  const accentText = theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
   if (!passedUser) {
     return (
       <p className="text-center text-gray-500 mt-10">
@@ -56,17 +54,13 @@ export default function UserProfile() {
 
   return (
     <>
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>Moody</title>
-      <link rel="icon" href="/bird.svg" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-    </Helmet>
-      {/* Page Wrapper */}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Moody</title>
+        <link rel="icon" href="/bird.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Helmet>
       <div className="w-full px-6 min-h-screen">
-
-      
-        {/* Header */}
         <div className="bg-[#6F4BA5] rounded-2xl px-6 py-4 mb-6 flex justify-between mt-1 max-h-10 ">
           <h2 className=" text-lg font-semibold text-[#F5D98C] flex items-center">
             Profile
@@ -79,8 +73,6 @@ export default function UserProfile() {
             <i className="fa-solid fa-house font-bold" />
           </Link>
         </div>
-
-        {/* Profile Card */}
         <div className="max-w-2xl mx-auto bg-white dark:bg-[#0f0f14] rounded-2xl  p-6">
           <div className="flex flex-col items-center gap-4">
             <img
@@ -89,8 +81,6 @@ export default function UserProfile() {
               className="w-32 h-32 rounded-full cursor-pointer object-cover"
               alt={passedUser.name}
             />
-
-            {/* Name with icon */}
             <h2 className="text-xl font-bold dark:text-white flex items-center gap-2">
               <i className="fa-solid fa-user text-[#6F4BA5]"></i>
               {passedUser.name}
@@ -98,9 +88,12 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
-
-      {/* Image Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
+      <Modal
+        placement={"center"}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdrop="blur"
+      >
         <ModalContent>
           <ModalHeader>Profile Photo</ModalHeader>
           <ModalBody>

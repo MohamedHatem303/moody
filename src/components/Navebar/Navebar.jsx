@@ -43,12 +43,9 @@ export default function Navbar() {
   }
 
   const navBg =
-    theme === "dark"
-      ? "bg-[#16161D]/80 backdrop-blur-md"
-      : "bg-[#35037F]/75";
+    theme === "dark" ? "bg-[#16161D]/80 backdrop-blur-md" : "bg-[#35037F]/75";
 
-  const brandText =
-    theme === "dark" ? "text-[#EDEDF0]" : "text-[#F5D98C]";
+  const brandText = theme === "dark" ? "text-[#EDEDF0]" : "text-[#F5D98C]";
 
   const dropdownBg =
     theme === "dark" ? "bg-[#16161D] text-white" : "bg-white text-black";
@@ -102,9 +99,7 @@ export default function Navbar() {
                 key="Profile"
                 onPress={() => navigate("/Profile")}
                 className={`group ${
-                  isActive("/Profile")
-                    ? "border-b-[5px] border-[#f2d58f]"
-                    : ""
+                  isActive("/Profile") ? "border-b-[5px] border-[#f2d58f]" : ""
                 }`}
               >
                 <span className="relative block">
@@ -120,9 +115,7 @@ export default function Navbar() {
                 key="Setting"
                 onPress={() => navigate("/Setting")}
                 className={`group ${
-                  isActive("/Setting")
-                    ? "border-b-[5px] border-[#f2d58f]"
-                    : ""
+                  isActive("/Setting") ? "border-b-[5px] border-[#f2d58f]" : ""
                 }`}
               >
                 <span className="relative block">

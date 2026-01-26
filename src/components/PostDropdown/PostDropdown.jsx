@@ -44,9 +44,6 @@ export default function PostDropdown({
   const inputRef = useRef(null);
   const modalContentRef = useRef(null);
   const modalBodyRef = useRef(null);
-
-  /* ========== كل لوجيك الموبايل زي ما هو ========== */
-
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -163,8 +160,6 @@ export default function PostDropdown({
     setImageUrl(URL.createObjectURL(file));
   }
 
-  /* ========== ألوان Light / Dark فقط ========== */
-
   const iconColor =
     theme === "dark"
       ? "text-gray-400 hover:text-[#7C3AED]"
@@ -173,8 +168,7 @@ export default function PostDropdown({
   const dropdownBg =
     theme === "dark" ? "bg-[#16161D] text-white" : "bg-white text-gray-900";
 
-  const modalBg =
-    theme === "dark" ? "bg-[#16161D] text-white" : "";
+  const modalBg = theme === "dark" ? "bg-[#16161D] text-white" : "";
 
   const inputClasses =
     theme === "dark"

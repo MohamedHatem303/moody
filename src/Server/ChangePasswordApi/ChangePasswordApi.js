@@ -13,7 +13,7 @@ export async function changePassword({ password, newPassword }) {
       headers: {
         token,
       },
-    }
+    },
   );
 
   return data;

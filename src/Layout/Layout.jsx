@@ -57,16 +57,15 @@ export default function Layout() {
   }, [openLeft, openRight]);
 
   const drawerBg =
-    theme === "dark" ? "bg-[#16161D] text-[#EDEDF0]" : "bg-[#714EA5] text-white";
+    theme === "dark"
+      ? "bg-[#16161D] text-[#EDEDF0]"
+      : "bg-[#714EA5] text-white";
 
-  const pageBg =
-    theme === "dark" ? "bg-[#0F0F14]" : "bg-gray-50";
+  const pageBg = theme === "dark" ? "bg-[#0F0F14]" : "bg-gray-50";
 
   return (
     <>
       <Navebar />
-
-      {/* ===== Desktop ===== */}
       <div className={`hidden lg:block mt-16 ${pageBg}`}>
         <LeftSidebar />
         <div className="lg:ml-[22rem] lg:mr-[22rem] lg:flex lg:justify-center">
@@ -76,13 +75,10 @@ export default function Layout() {
         </div>
         <RightSidebar />
       </div>
-
-      {/* ===== Mobile & Tablet ===== */}
       <div
         {...handlers}
         className={`lg:hidden relative overflow-hidden mt-14 ${pageBg}`}
       >
-        {/* Left Drawer */}
         <div
           className={`fixed top-0 left-0 h-full w-[80vw] max-w-[320px] transition-transform duration-300 z-40 ${
             openLeft ? "translate-x-0" : "-translate-x-[120%]"
@@ -93,7 +89,6 @@ export default function Layout() {
           </div>
         </div>
 
-        {/* Right Drawer */}
         <div
           className={`fixed top-0 right-0 h-full w-[80vw] max-w-[320px] transition-transform duration-300 z-40 ${
             openRight ? "translate-x-0" : "translate-x-[120%]"
@@ -104,7 +99,6 @@ export default function Layout() {
           </div>
         </div>
 
-        {/* Overlay */}
         {(openLeft || openRight) && (
           <div
             className="fixed inset-0 bg-black/40 z-30"
@@ -115,7 +109,6 @@ export default function Layout() {
           />
         )}
 
-        {/* Content */}
         <div className="p-3">
           <Outlet context={{ openLeft, openRight }} />
         </div>

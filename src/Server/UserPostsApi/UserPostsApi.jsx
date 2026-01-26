@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserIdFromToken } from "../../utils/getUserIdFromToken"; // 👈 السطر الناقص
+import { getUserIdFromToken } from "../../utils/getUserIdFromToken";
 
 export async function UserPosts() {
   const userId = getUserIdFromToken();
@@ -13,8 +13,8 @@ export async function UserPosts() {
       params: {
         limit: 1000,
       },
-    }
+    },
   );
 
-  return data.posts.reverse(); // أحدث بوست فوق
+  return data.posts.reverse();
 }

@@ -28,8 +28,22 @@ const routers = createBrowserRouter([
     path: "/",
     element: <AuthLayout />,
     children: [
-      { index: true, element: <AuthProtect><Login /></AuthProtect> },
-      { path: "Register", element: <AuthProtect><Register /></AuthProtect> },
+      {
+        index: true,
+        element: (
+          <AuthProtect>
+            <Login />
+          </AuthProtect>
+        ),
+      },
+      {
+        path: "Register",
+        element: (
+          <AuthProtect>
+            <Register />
+          </AuthProtect>
+        ),
+      },
       { path: "*", element: <Notfound /> },
     ],
   },
@@ -37,18 +51,49 @@ const routers = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { path: "Home", element: <ProtectRoutes><Home /></ProtectRoutes> },
-      { path: "Profile", element: <ProtectRoutes><Profile /></ProtectRoutes> },
-      { path: "UserProfile/:id", element: <ProtectRoutes><UserProfile /></ProtectRoutes> },
-      { path: "SinglePost/:id", element: <ProtectRoutes><SinglePost /></ProtectRoutes> },
-      { path: "Setting", element: <ProtectRoutes><Setting /></ProtectRoutes> },
+      {
+        path: "Home",
+        element: (
+          <ProtectRoutes>
+            <Home />
+          </ProtectRoutes>
+        ),
+      },
+      {
+        path: "Profile",
+        element: (
+          <ProtectRoutes>
+            <Profile />
+          </ProtectRoutes>
+        ),
+      },
+      {
+        path: "UserProfile/:id",
+        element: (
+          <ProtectRoutes>
+            <UserProfile />
+          </ProtectRoutes>
+        ),
+      },
+      {
+        path: "SinglePost/:id",
+        element: (
+          <ProtectRoutes>
+            <SinglePost />
+          </ProtectRoutes>
+        ),
+      },
+      {
+        path: "Setting",
+        element: (
+          <ProtectRoutes>
+            <Setting />
+          </ProtectRoutes>
+        ),
+      },
     ],
   },
 ]);
-
-/* =========================
-   App اللي بيستخدم الثيم
-========================= */
 function AppContent() {
   const { theme } = useTheme();
 
@@ -63,10 +108,6 @@ function AppContent() {
     </QueryClientProvider>
   );
 }
-
-/* =========================
-   Wrapper بالـ ThemeProvider
-========================= */
 export default function App() {
   return (
     <ThemeProvider>

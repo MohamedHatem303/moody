@@ -10,17 +10,11 @@ import { useOutletContext } from "react-router-dom";
 export default function Home() {
   const { theme } = useTheme();
 
-  // ===== استلام حالة السلايدرز (موبايل فقط) =====
   const outletContext = useOutletContext() || {};
   const { openLeft = false, openRight = false } = outletContext;
 
-  const {
-    posts,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-  } = usePosts();
+  const { posts, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    usePosts();
 
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
@@ -31,18 +25,15 @@ export default function Home() {
     };
 
     const handleScroll = () => {
-      // ===== Scroll To Top Button =====
       setShowScrollTop(window.scrollY > 400);
 
-      // ===== Infinite Scroll (زي ما كان) =====
       if (!hasNextPage || isFetchingNextPage) return;
 
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
       const fullHeight = document.documentElement.scrollHeight;
 
-      const distanceFromBottom =
-        fullHeight - (scrollTop + windowHeight);
+      const distanceFromBottom = fullHeight - (scrollTop + windowHeight);
 
       if (distanceFromBottom <= 7000) {
         fetchNextPage();
@@ -61,19 +52,14 @@ export default function Home() {
   if (isLoading) return <LoadingPage />;
 
   const pageBg =
-    theme === "dark"
-      ? "bg-[#0F0F14] text-[#EDEDF0]"
-      : "bg-white text-gray-900";
+    theme === "dark" ? "bg-[#0F0F14] text-[#EDEDF0]" : "bg-white text-gray-900";
 
-  const loadingText =
-    theme === "dark" ? "text-gray-400" : "text-gray-600";
+  const loadingText = theme === "dark" ? "text-gray-400" : "text-gray-600";
 
   const spinnerBorder =
     theme === "dark" ? "border-gray-600" : "border-gray-400";
 
-  // ===== إخفاء الزرار في الموبايل لما السلايدر يفتح =====
-  const hideOnMobileSidebar =
-    isMobile && (openLeft || openRight);
+  const hideOnMobileSidebar = isMobile && (openLeft || openRight);
 
   return (
     <>
@@ -103,12 +89,9 @@ export default function Home() {
         )}
       </div>
 
-      {/* ===== Scroll To Top Button ===== */}
       {showScrollTop && !hideOnMobileSidebar && (
         <button
-          onClick={() =>
-            window.scrollTo({ top: 0, behavior: "smooth" })
-          }
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className={`
             fixed bottom-6 right-6 lg:right-[320px] z-50
             w-12 h-12 rounded-full
@@ -119,8 +102,8 @@ export default function Home() {
 
             ${
               theme === "dark"
-              //#f2d58f
-                ? "bg-[#0F0F14] text-[#7C3AED] outline-[#7C3AED] hover:text-[#f2d58f] hover:outline-[#f2d58f]"
+                ? //#f2d58f
+                  "bg-[#0F0F14] text-[#7C3AED] outline-[#7C3AED] hover:text-[#f2d58f] hover:outline-[#f2d58f]"
                 : "bg-[#7C3AED] text-[#f2d58f] outline-[#f2d58f] hover:outline-[#7C3AED] hover:text-[#7C3AED] hover:bg-white"
             }
           `}

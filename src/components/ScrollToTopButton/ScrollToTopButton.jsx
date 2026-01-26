@@ -8,7 +8,6 @@ export default function ScrollToTopButton({
   const [show, setShow] = useState(false);
   const location = useLocation();
 
-  // يظهر بس في صفحة الهوم
   const isHome = location.pathname === "/Home";
 
   useEffect(() => {
@@ -25,7 +24,6 @@ export default function ScrollToTopButton({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHome]);
 
-  // يختفي في الموبايل لو أي سايدبار مفتوح
   const hideOnMobileSidebar =
     window.innerWidth < 768 && (isLeftSidebarOpen || isRightSidebarOpen);
 

@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { usePosts } from "../../Hooks/usePosts";
 import { useTheme } from "../../Context/themeContext";
 import { Link } from "react-router-dom";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-} from "@heroui/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@heroui/react";
 
 export default function RightSidebar({ onItemClick }) {
   const { theme } = useTheme();
@@ -16,7 +11,6 @@ export default function RightSidebar({ onItemClick }) {
   const [isOpen, setIsOpen] = useState(false);
   const [gameUrl, setGameUrl] = useState("");
 
-  /* ===== Prevent background scroll ===== */
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
   }, [isOpen]);
@@ -30,26 +24,20 @@ export default function RightSidebar({ onItemClick }) {
     link: "https://snak.ee/",
   };
 
-  /* ===== COLORS ===== */
   const wrapperClasses =
     theme === "dark"
       ? "bg-[#16161D] text-[#EDEDF0]"
       : "bg-[#714EA5] text-white";
 
-  const accentText =
-    theme === "dark" ? "text-[#7C3AED]" : "text-[#F5D98C]";
+  const accentText = theme === "dark" ? "text-[#7C3AED]" : "text-[#F5D98C]";
 
-  const cardBg =
-    theme === "dark" ? "bg-[#1C1C26]" : "bg-white/10";
+  const cardBg = theme === "dark" ? "bg-[#1C1C26]" : "bg-white/10";
 
-  const hoverBg =
-    theme === "dark" ? "hover:bg-[#2A2A3A]" : "hover:bg-white/20";
+  const hoverBg = theme === "dark" ? "hover:bg-[#2A2A3A]" : "hover:bg-white/20";
 
-  const mutedText =
-    theme === "dark" ? "text-gray-400" : "text-[#F5D98C]";
+  const mutedText = theme === "dark" ? "text-gray-400" : "text-[#F5D98C]";
 
-  const divider =
-    theme === "dark" ? "border-[#2F2F45]" : "border-white/30";
+  const divider = theme === "dark" ? "border-[#2F2F45]" : "border-white/30";
 
   const modalBg =
     theme === "dark"
@@ -70,7 +58,6 @@ export default function RightSidebar({ onItemClick }) {
             ${wrapperClasses}
           `}
         >
-          {/* ===== Trending ===== */}
           <div>
             <h2
               className={`text-lg font-bold mb-3 flex items-center gap-2 ${accentText}`}
@@ -83,7 +70,7 @@ export default function RightSidebar({ onItemClick }) {
                 <Link
                   key={i}
                   to={`/SinglePost/${post.id}`}
-                  onClick={onItemClick}   
+                  onClick={onItemClick}
                   className="block"
                 >
                   <div
@@ -105,7 +92,6 @@ export default function RightSidebar({ onItemClick }) {
 
           <hr className={divider} />
 
-          {/* ===== Play Zone ===== */}
           <div>
             <h2
               className={`text-lg font-bold mb-4 flex items-center gap-2 ${accentText}`}
@@ -117,7 +103,7 @@ export default function RightSidebar({ onItemClick }) {
               onClick={() => {
                 setGameUrl(game.link);
                 setIsOpen(true);
-                onItemClick?.(); // 👈 يقفل في الموبايل بس
+                onItemClick?.(); 
               }}
               className={`w-full text-left mb-3 rounded-lg p-2 text-sm transition ${cardBg} ${hoverBg}`}
             >
@@ -146,7 +132,6 @@ export default function RightSidebar({ onItemClick }) {
         </div>
       </aside>
 
-      {/* ===== Game Modal ===== */}
       <Modal
         isOpen={isOpen}
         placement="center"

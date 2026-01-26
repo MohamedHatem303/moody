@@ -6,9 +6,7 @@ export function usePosts() {
     queryKey: ["posts"],
     queryFn: getAllPosts,
     getNextPageParam: (lastPage, allPages) =>
-      lastPage.posts.length > 0
-        ? allPages.length + 1
-        : undefined,
+      lastPage.posts.length > 0 ? allPages.length + 1 : undefined,
   });
 
   const posts = query.data?.pages.flatMap((p) => p.posts) ?? [];

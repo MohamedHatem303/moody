@@ -14,7 +14,6 @@ export default function CommentsCard({
   const { userData } = useContext(AuthContext);
   const { theme } = useTheme();
 
-  // 🛡️ حماية من null
   if (!comment || !comment.commentCreator) return null;
 
   const userId = userData?._id;
@@ -28,19 +27,15 @@ export default function CommentsCard({
       ? "bg-[#1C1C26] border-[#2F2F45] text-[#EDEDF0]"
       : "bg-gray-100 border-gray-200 text-gray-900";
 
-  const nameColor =
-    theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
+  const nameColor = theme === "dark" ? "text-[#7C3AED]" : "text-[#35037F]";
 
-  const mutedText =
-    theme === "dark" ? "text-gray-400" : "text-gray-500";
+  const mutedText = theme === "dark" ? "text-gray-400" : "text-gray-500";
 
   return (
     <>
       <div
         className={`${
-          allcomment
-            ? `border rounded-2xl shadow-sm m-1 p-3 ${cardBg}`
-            : ""
+          allcomment ? `border rounded-2xl shadow-sm m-1 p-3 ${cardBg}` : ""
         } flex justify-between items-start gap-3 mt-2 mx-4`}
       >
         <div className="flex items-start gap-3">
@@ -55,9 +50,7 @@ export default function CommentsCard({
 
           <div
             className={`${
-              !allcomment
-                ? `min-w-40 px-2 pt-2 pb-4 rounded-xl ${cardBg}`
-                : ""
+              !allcomment ? `min-w-40 px-2 pt-2 pb-4 rounded-xl ${cardBg}` : ""
             } flex justify-between`}
           >
             <div>
@@ -70,7 +63,9 @@ export default function CommentsCard({
                 )}
               </p>
 
-              <p className={theme === "dark" ? "text-gray-200" : "text-gray-800"}>
+              <p
+                className={theme === "dark" ? "text-gray-200" : "text-gray-800"}
+              >
                 {comment.content}
               </p>
             </div>
@@ -104,9 +99,7 @@ export default function CommentsCard({
 
       {!allcomment && (
         <div className="mx-20 p-1 flex items-start gap-3 w-fit">
-          <span className={mutedText}>
-            {getTimeAgo(comment.createdAt)}
-          </span>
+          <span className={mutedText}>{getTimeAgo(comment.createdAt)}</span>
         </div>
       )}
     </>

@@ -8,7 +8,7 @@ export async function updateMyPost(postId, formData) {
       headers: {
         token: localStorage.getItem("token"),
       },
-    }
+    },
   );
 
   return res.data;

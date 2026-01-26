@@ -66,9 +66,7 @@ export default function CreatePost() {
         <div className="flex gap-3">
           <img
             src={
-              userData?.photo?.includes("default")
-                ? userImage
-                : userData?.photo
+              userData?.photo?.includes("default") ? userImage : userData?.photo
             }
             className="w-10 h-10 rounded-full"
             alt="user"
@@ -121,11 +119,7 @@ export default function CreatePost() {
 
       {imageUrl && (
         <div className="relative mt-3">
-          <img
-            src={imageUrl}
-            className="w-full rounded-xl"
-            alt="preview"
-          />
+          <img src={imageUrl} className="w-full rounded-xl" alt="preview" />
 
           <svg
             onClick={() => {

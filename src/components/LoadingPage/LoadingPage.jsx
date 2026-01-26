@@ -9,11 +9,9 @@ export default function LoadingPage() {
       ? "bg-[#16161D] border-[#2F2F45]"
       : "bg-white border-gray-200";
 
-  const skeleton =
-    theme === "dark" ? "bg-[#2A2A3A]" : "bg-gray-300";
+  const skeleton = theme === "dark" ? "bg-[#2A2A3A]" : "bg-gray-300";
 
-  const divider =
-    theme === "dark" ? "border-[#2F2F45]" : "border-gray-200";
+  const divider = theme === "dark" ? "border-[#2F2F45]" : "border-gray-200";
 
   return (
     <div

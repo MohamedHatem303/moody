@@ -11,18 +11,18 @@ export default function LeftSidebar({ onItemClick }) {
   const today = new Date().toDateString();
 
   const todaysPosts = posts.filter(
-    (p) => new Date(p?.createdAt).toDateString() === today
+    (p) => new Date(p?.createdAt).toDateString() === today,
   );
 
   const todaysComments = todaysPosts.reduce(
     (acc, p) => acc + (p?.comments?.length || 0),
-    0
+    0,
   );
 
   let mostActivePost = null;
   if (posts.length) {
     mostActivePost = [...posts].sort(
-      (a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0)
+      (a, b) => (b?.comments?.length || 0) - (a?.comments?.length || 0),
     )[0];
   }
 
@@ -47,7 +47,6 @@ export default function LeftSidebar({ onItemClick }) {
     .sort((a, b) => b.count - a.count)
     .slice(0, 3);
 
-  /* ===== COLORS ===== */
   const lightWrapper = "bg-[#714EA5] text-white border-gray-200";
   const lightAccent = "text-[#F5D98C]";
   const lightCard = "bg-white/10";
@@ -65,11 +64,9 @@ export default function LeftSidebar({ onItemClick }) {
   const divider =
     theme === "dark" ? "border-[#2F2F45]" : "border-gray-300 opacity-40";
   function love() {
-    toast('Thank you for visiting Moody❤️');
+    toast("Thank you for visiting Moody❤️");
     onItemClick();
   }
- 
-
 
   return (
     <aside
@@ -95,18 +92,18 @@ export default function LeftSidebar({ onItemClick }) {
           ${wrapper}
         `}
       >
-        {/* Logo */}
-        <Link to="/Home" onClick={onItemClick} >
-        <div className="flex flex-col items-center">
-          <img src="/bird.png" className="w-17 h-17" />
-          <h2 className={`text-3xl font-semibold ${accent}`}>Moody</h2>
-        </div>
+        <Link to="/Home" onClick={onItemClick}>
+          <div className="flex flex-col items-center">
+            <img src="/bird.png" className="w-17 h-17" />
+            <h2 className={`text-3xl font-semibold ${accent}`}>Moody</h2>
+          </div>
         </Link>
         <hr className={divider} />
 
-        {/* Snapshot */}
         <div>
-          <h2 className={`text-lg font-bold flex items-center gap-2 mb-2 ${accent}`}>
+          <h2
+            className={`text-lg font-bold flex items-center gap-2 mb-2 ${accent}`}
+          >
             <i className="fa-solid fa-chart-line" />
             Community Snapshot
           </h2>
@@ -124,9 +121,10 @@ export default function LeftSidebar({ onItemClick }) {
 
         <hr className={divider} />
 
-        {/* Top Voices */}
         <div>
-          <h2 className={`text-lg font-bold flex items-center gap-2 mb-1 ${accent}`}>
+          <h2
+            className={`text-lg font-bold flex items-center gap-2 mb-1 ${accent}`}
+          >
             <i className="fa-solid fa-user-astronaut" />
             Top Voices
           </h2>
@@ -137,7 +135,7 @@ export default function LeftSidebar({ onItemClick }) {
                 key={i}
                 to={`/UserProfile/${u.id}`}
                 state={{ user: u.user }}
-                onClick={onItemClick}   
+                onClick={onItemClick}
                 className="block"
               >
                 <div
@@ -154,9 +152,7 @@ export default function LeftSidebar({ onItemClick }) {
                     />
                     <div>
                       <p className="text-sm">{u.name}</p>
-                      <p className={`text-xs ${accent}`}>
-                        {u.count} posts
-                      </p>
+                      <p className={`text-xs ${accent}`}>{u.count} posts</p>
                     </div>
                   </div>
 
@@ -168,67 +164,106 @@ export default function LeftSidebar({ onItemClick }) {
             <p className={`text-sm ${accent}`}>No data</p>
           )}
         </div>
-      <footer className="hidden lg:block text-[#FFf  ] py-6 relative -bottom-38 lg:bottom-0 w-full">
+        <footer className="hidden lg:block text-[#FFf  ] py-6 relative -bottom-38 lg:bottom-0 w-full">
+          <div className="container mx-auto text-center space-y-5">
+            <div className="flex justify-center gap-5 text-xl icons">
+              <a
+                onClick={onItemClick}
+                target="_blank"
+                href="https://www.facebook.com/share/1GgLvCTiJS/"
+                className="hover:text-blue-500 transition"
+              >
+                <i className="fa-brands fa-facebook" />
+              </a>
+              <a
+                onClick={onItemClick}
+                target="_blank"
+                href="https://www.instagram.com/mohamed_hatem.303"
+                className="hover:text-pink-500 transition"
+              >
+                <i className="fa-brands fa-instagram" />
+              </a>
+              <a
+                onClick={onItemClick}
+                target="_blank"
+                href="https://wa.me/qr/XANON7AKNBE6F1"
+                className="hover:text-green-500 transition"
+              >
+                <i className="fa-brands fa-whatsapp" />
+              </a>
+              <a
+                onClick={onItemClick}
+                target="_blank"
+                href="https://www.snapchat.com/add/mohamed3hatem"
+                className="hover:text-yellow-400 transition"
+              >
+                <i className="fa-brands fa-snapchat" />
+              </a>
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedhatm303@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-red-400 transition"
+              >
+                <i className="fa-solid fa-envelope" />
+              </a>
+            </div>
+            <p className="text-sm mb-0">Designed &amp; Developed by Eng</p>
+            <span onClick={love} className="text-[#F5D98C] font-semibold">
+              Mohamed Hatem
+            </span>
+          </div>
+        </footer>
+      </div>
+      <footer className=" lg:hidden text-[#FFf  ] py-6 relative -bottom-28 lg:bottom-0 w-full">
         <div className="container mx-auto text-center space-y-5">
-          {/* Social Icons */}
           <div className="flex justify-center gap-5 text-xl icons">
-            <a onClick={onItemClick}  target="_blank" href="https://www.facebook.com/share/1GgLvCTiJS/" className="hover:text-blue-500 transition">
+            <a
+              onClick={onItemClick}
+              target="_blank"
+              href="https://www.facebook.com/share/1GgLvCTiJS/"
+              className="hover:text-blue-500 transition"
+            >
               <i className="fa-brands fa-facebook" />
             </a>
-            <a onClick={onItemClick}  target="_blank" href="https://www.instagram.com/mohamed_hatem.303" className="hover:text-pink-500 transition">
+            <a
+              onClick={onItemClick}
+              target="_blank"
+              href="https://www.instagram.com/mohamed_hatem.303"
+              className="hover:text-pink-500 transition"
+            >
               <i className="fa-brands fa-instagram" />
             </a>
-            <a onClick={onItemClick}  target="_blank" href="https://wa.me/qr/XANON7AKNBE6F1" className="hover:text-green-500 transition">
+            <a
+              onClick={onItemClick}
+              target="_blank"
+              href="https://wa.me/qr/XANON7AKNBE6F1"
+              className="hover:text-green-500 transition"
+            >
               <i className="fa-brands fa-whatsapp" />
             </a>
-            <a onClick={onItemClick}  target="_blank" href="https://www.snapchat.com/add/mohamed3hatem" className="hover:text-yellow-400 transition">
+            <a
+              onClick={onItemClick}
+              target="_blank"
+              href="https://www.snapchat.com/add/mohamed3hatem"
+              className="hover:text-yellow-400 transition"
+            >
               <i className="fa-brands fa-snapchat" />
             </a>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedhatm303@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={onItemClick}
+              href="mailto:mohamedhatm303@gmail.com"
               className="hover:text-red-400 transition"
             >
               <i className="fa-solid fa-envelope" />
             </a>
           </div>
-          {/* Credit */}
-          <p className="text-sm mb-0">
-            Designed &amp; Developed by Eng   
-          </p>
-          <span onClick={love} className="text-[#F5D98C] font-semibold">Mohamed Hatem</span>
+          <p className="text-sm mb-0">Designed &amp; Developed by Eng</p>
+          <span onClick={love} className="text-[#F5D98C] font-semibold">
+            Mohamed Hatem
+          </span>
         </div>
       </footer>
-      </div>
-<footer className=" lg:hidden text-[#FFf  ] py-6 relative -bottom-28 lg:bottom-0 w-full">
-        <div className="container mx-auto text-center space-y-5">
-          {/* Social Icons */}
-          <div className="flex justify-center gap-5 text-xl icons">
-            <a onClick={onItemClick}  target="_blank" href="https://www.facebook.com/share/1GgLvCTiJS/" className="hover:text-blue-500 transition">
-              <i className="fa-brands fa-facebook" />
-            </a>
-            <a onClick={onItemClick}  target="_blank" href="https://www.instagram.com/mohamed_hatem.303" className="hover:text-pink-500 transition">
-              <i className="fa-brands fa-instagram" />
-            </a>
-            <a onClick={onItemClick}  target="_blank" href="https://wa.me/qr/XANON7AKNBE6F1" className="hover:text-green-500 transition">
-              <i className="fa-brands fa-whatsapp" />
-            </a>
-            <a onClick={onItemClick}  target="_blank" href="https://www.snapchat.com/add/mohamed3hatem" className="hover:text-yellow-400 transition">
-              <i className="fa-brands fa-snapchat" />
-            </a>
-            <a onClick={onItemClick} href="mailto:mohamedhatm303@gmail.com" className="hover:text-red-400 transition">
-              <i className="fa-solid fa-envelope" />
-            </a>
-          </div>
-          {/* Credit */}
-          <p className="text-sm mb-0">
-            Designed &amp; Developed by Eng   
-          </p>
-          <span onClick={love} className="text-[#F5D98C] font-semibold">Mohamed Hatem</span>
-        </div>
-      </footer>
-
     </aside>
   );
 }
