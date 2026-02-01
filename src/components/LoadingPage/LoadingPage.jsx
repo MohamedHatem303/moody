@@ -15,7 +15,7 @@ export default function LoadingPage() {
 
   return (
     <div
-      className={`rounded-2xl shadow-sm w-full min-h-[80vh] mx-auto overflow-hidden my-3 animate-pulse border ${cardBg}`}
+      className={`rounded-2xl shadow-sm w-full min-h-[60vh] mx-auto overflow-hidden my-3 animate-pulse border ${cardBg}`}
     >
       <div className="flex items-center gap-3 p-3">
         <div className={`w-9 h-9 rounded-full ${skeleton}`}></div>
